@@ -14,6 +14,8 @@ function getData() {
 
 getData();
 
+console.log("andrei");
+
 function createInitialTimeline(dataCircles) {
 
     const initialTimelineMain = Math.floor(dataCircles.length / 2);
