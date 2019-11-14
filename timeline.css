@@ -5,32 +5,54 @@
 body {
   margin: 0;
   padding: 0;
-  background: lightblue;
+  background: #3a3a3a;
   overflow: hidden;
 }
 
-#timeline {
+header {
+  width: 100%;
+  height: 60px;
+  background: #161616;
+  display: flex;
+  align-items: center;
+}
 
-  min-width: 940px;
-  max-width: 940px;
-  height: 20%;
-  margin: 10em auto 0 auto;
+header h1 {
+  margin: 0;
+  color: white;
+  font-size: 22px;
+  padding-left: 7em;
+}
+
+#timeline {
+  width: 100%;
+  margin: 7.6em auto;
+  background: #212121;
+  position: relative;
+}
+
+#timeline-top {
+  position: absolute;
+  top: -30px;
+  background: #161616;
+  width: 100%;
+  height: 30px;
 }
 
 #line {
   position: relative;
-  overflow: hidden;
-  width: 600px;
-  margin: auto;
-  height: 110px;
+  /* overflow: hidden;
+  width: 600px; 
+  margin: auto; */
+  height: 143px;
 }
 
-#white_line{
-  height: 6px;
+#white_line {
+  height: 5px;
   width: 100%;
   background: white;
   border-radius: 5px;
-  top:50%;
+  top: 48%;
   margin: auto;
   position: relative;
 }
@@ -38,48 +60,76 @@ body {
 .circle {
   width: 40px;
   height: 40px;
-  background: lightgray;
+  background: #ff0062;
   border-radius: 50%;
   position: absolute;
   top: 5px;
   border: 3px solid white;
   cursor: pointer;
   text-align: center;
-  line-height: 2.65;
+  line-height: 36px;
   transform: translateX(-50%);
   font-size: 13px;
-  color: lightgray;
+  color: #ff0062;
 }
 
 
 .circle:not(.main):not(.prev):not(.next):hover {
-  background: #3b5998;
+  background: #21bfd6;
   color: #fff;
 }
 
 .circle.main {
-  background: #3b5998;
+  background: #21bfd6;
   color: white;
   transition: 0.3s;
   width: 110px;
   height: 110px;
-  top: -32px;
-  line-height: 107px;
+  top: -30px;
+  line-height: 102px;
   font-size: 30px;
 }
 
-.circle.prev, .circle.next {
-  background: lightskyblue;
+.circle.prev,
+.circle.next {
+  background: #009aff;
   transition: 0.3s;
   width: 70px;
   height: 70px;
   top: -10px;
-  line-height: 65px;
-  font-size: 17px;
-  color: #000;
+  line-height: 62px;
+  font-size: 18px;
+  color: white
 }
 
-.timeline_circles{
-  margin-top: 26px;
+.timeline_circles {
+  margin-top: 41px;
 }
 
+.infobox {
+  position: absolute;
+  width: 100%;
+  color: #009aff;
+  display: none;
+  top: 15%;
+}
+
+#container {
+  width: 40%;
+  height: 300px;
+  background: #212121;
+  margin: 6em auto;
+  position: relative;
+}
+
+.container-top {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  background: #161616;
+}
+
+.show {
+  display: block;
+}
