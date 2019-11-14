@@ -45,14 +45,22 @@ body {
   border: 3px solid white;
   cursor: pointer;
   text-align: center;
-  line-height: 3;
+  line-height: 2.65;
   transform: translateX(-50%);
+  font-size: 13px;
+  color: lightgray;
+}
+
+
+.circle:not(.main):not(.prev):not(.next):hover {
+  background: #3b5998;
+  color: #fff;
 }
 
 .circle.main {
   background: #3b5998;
   color: white;
-  transition: 1s;
+  transition: 0.3s;
   width: 110px;
   height: 110px;
   top: -32px;
@@ -60,22 +68,15 @@ body {
   font-size: 30px;
 }
 
-.circle.prev {
+.circle.prev, .circle.next {
   background: lightskyblue;
-  transition: 1s;
+  transition: 0.3s;
   width: 70px;
   height: 70px;
   top: -10px;
   line-height: 65px;
-}
-
-.circle.next {
-  background: lightskyblue;
-  transition: 1s;
-  width: 70px;
-  height: 70px;
-  top: -10px;
-  line-height: 65px;
+  font-size: 17px;
+  color: #000;
 }
 
 .timeline_circles{

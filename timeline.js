@@ -20,7 +20,7 @@ function createInitialTimeline(dataCircles) {
     
     dataCircles.forEach((value, index) => {
 
-        let circle = `<div id=${value.year} class="circle"></div>`;
+        let circle = `<div id=${value.year} class="circle">${value.year}</div>`;
 
         if (index === initialTimelineMain) {
             circle = `<div id=${value.year} class="circle main">${value.year}</div>`;
@@ -32,7 +32,7 @@ function createInitialTimeline(dataCircles) {
 
         $('.timeline_circles').append(circle);
 
-        $('.circle').get(index).style.left = `${index * pace}px`;
+        $('.circle').get(index).style.left = `${index * pace }px`;
         
     });
 
@@ -97,7 +97,6 @@ function adjustTimeline(size){
 
 function resetMain(newMain) {
 
-    $('.circle').text('');
     $('.circle').removeClass('main');
     $('.circle').removeClass('prev');
     $('.circle').removeClass('next');
@@ -111,8 +110,6 @@ function resetMain(newMain) {
             $(newMain).prev().text(newMain.previousSibling.id);
         }
     }, 300);
-
-    
 
     $(newMain).addClass('main');
     $(newMain).next().addClass('next');
