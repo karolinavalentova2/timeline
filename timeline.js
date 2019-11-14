@@ -14,8 +14,6 @@ function getData() {
 
 getData();
 
-console.log("andrei");
-
 function createInitialTimeline(dataCircles) {
 
     const initialTimelineMain = Math.floor(dataCircles.length / 2);
@@ -67,7 +65,7 @@ function createInitialTimeline(dataCircles) {
 
 }
 
-$(document).on("click", ".circle", function () {
+$(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
     if ($(this).hasClass('main')) {
         return;
     }
@@ -77,6 +75,25 @@ $(document).on("click", ".circle", function () {
     let newString = currentValueRaw.substring(0, lastIndexCommma);
     let lastIndexComma2 = newString.lastIndexOf(",");
     const currentValue = parseInt(newString.substring(lastIndexComma2 + 1).trim());
+
+    // if (typeof e.originalEvent.detail == 'number' && e.originalEvent.detail !== 0) {
+    //     if (e.originalEvent.detail > 0) {
+    //         console.log('Down');
+
+    //     } else if (e.originalEvent.detail < 0) {
+    //         console.log('Up');
+    //     }
+    // } else if (typeof e.originalEvent.wheelDelta == 'number') {
+    //     if (e.originalEvent.wheelDelta < 0) {
+    //         console.log('Down');
+    //         adjustTimeline(currentValue + 100);
+    //         resetMain(this);
+    //     } else if (e.originalEvent.wheelDelta > 0) {
+    //         console.log('Up');
+    //         adjustTimeline(currentValue - 100);
+    //         resetMain(this);
+    //     }
+    // }
 
     if ($(this).hasClass('prev')) {
         adjustTimeline(currentValue + 100);
