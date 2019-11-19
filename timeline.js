@@ -163,3 +163,75 @@ function resetMain(newMain) {
     $(newMain).prev().addClass('prev');
 
 }
+
+// --------------------------------------- music player and donut chart
+let isMusicPlaying = false;
+const MusicPlayer = new Audio("./assets/intro.mp3");
+let MusicPlayerPercentageUpdater;
+
+function doStart(){
+    loadSVG();
+}
+
+async function loadSVG() {
+    try {
+        const SVG = {
+            logo: await (await fetch("./assets/logo.svg")).text(),
+            playButton: await (await fetch("./assets/play-button.svg")).text(),
+            progressDonut: await (await fetch("./assets/progress-donut.svg")).text(),
+        };
+
+        document.getElementById('logo-container').innerHTML = SVG.logo;
+        document.getElementById('play-button-SVG').innerHTML = SVG.playButton;
+        startMusic();
+        document.getElementById('progressDonut').innerHTML = SVG.progressDonut;
+
+    } catch(error) {
+        console.error('Cannot read svg file, reason: ' + error.message);
+    }
+}
+
+function startMusic() {
+    const playButton = document.getElementById("playBtn");
+
+    playButton.onclick = async () => {
+        if(isMusicPlaying) {
+            MusicPlayer.pause();
+            MusicPlayer.currentTime = 0;
+            isMusicPlaying = false;
+            document.getElementById("playMusic").style.display = "block";
+            document.getElementById("stopMusic").style.display = "none";
+
+            clearInterval(MusicPlayerPercentageUpdater);
+            document.getElementById('donutText').textContent = '0%';
+            doResetPlayDonut();
+        } else {
+            await MusicPlayer.play();
+            isMusicPlaying = true;
+            document.getElementById("playMusic").style.display = "none";
+            document.getElementById("stopMusic").style.display = "block";
+
+            MusicPlayerPercentageUpdater = setInterval(() => {
+                const currentPlayedPercent = calculatePercentage(MusicPlayer.currentTime, MusicPlayer.duration);
+                document.getElementById('donutText').textContent = currentPlayedPercent + '%';
+
+                doStartPlayDonut(currentPlayedPercent);
+            }, 500);
+        }
+    }
+}
+
+function doStartPlayDonut(currentPlayedPercent) {
+    document.getElementById('donutFill').setAttribute('stroke-dasharray', `${ currentPlayedPercent } ${ 100 - parseInt(currentPlayedPercent) }`)
+}
+
+function doResetPlayDonut() {
+    document.getElementById('donutFill').setAttribute('stroke-dasharray', `0 100`)
+}
+
+function calculatePercentage(currentSeconds, totalSeconds) {
+    return String(Math.round((currentSeconds / totalSeconds) * 100));
+}
+
+document.body.onload = doStart;
+
