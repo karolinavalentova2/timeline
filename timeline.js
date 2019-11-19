@@ -197,27 +197,28 @@ function startMusic() {
     playButton.onclick = async () => {
         if(isMusicPlaying) {
             MusicPlayer.pause();
-            MusicPlayer.currentTime = 0;
+            //MusicPlayer.currentTime = 0;
             isMusicPlaying = false;
             document.getElementById("playMusic").style.display = "block";
             document.getElementById("stopMusic").style.display = "none";
-
-            clearInterval(MusicPlayerPercentageUpdater);
-            document.getElementById('donutText').textContent = '0%';
-            doResetPlayDonut();
+            // clearInterval(MusicPlayerPercentageUpdater);
+            // document.getElementById('donutText').textContent = '0%';
+            // doResetPlayDonut();
         } else {
             await MusicPlayer.play();
             isMusicPlaying = true;
             document.getElementById("playMusic").style.display = "none";
             document.getElementById("stopMusic").style.display = "block";
 
-            MusicPlayerPercentageUpdater = setInterval(() => {
-                const currentPlayedPercent = calculatePercentage(MusicPlayer.currentTime, MusicPlayer.duration);
-                document.getElementById('donutText').textContent = currentPlayedPercent + '%';
-
-                doStartPlayDonut(currentPlayedPercent);
-            }, 500);
+            
         }
+
+        MusicPlayerPercentageUpdater = setInterval(() => {
+            const currentPlayedPercent = calculatePercentage(MusicPlayer.currentTime, MusicPlayer.duration);
+            document.getElementById('donutText').textContent = currentPlayedPercent + '%';
+
+            doStartPlayDonut(currentPlayedPercent);
+        }, 500);
     }
 }
 
