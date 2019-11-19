@@ -1,5 +1,6 @@
-const pace = 100;
+const pace = 10;
 const dataLink = "https://timeline-5237.restdb.io/rest/timeline-data";
+let dataLoaded = null;
 
 function getData() {
     fetch(dataLink, {
@@ -14,11 +15,31 @@ function getData() {
 
 getData();
 
+function getPace(){
+    if($(window).width() <= 920 && !($(window).width() <= 460)){
+        return 2 * pace;
+    } 
+
+    if($(window).width() > 920){
+        return pace;
+    }
+
+    if($(window).width() <= 460){
+        return 3 * pace;
+    }
+}
+
 function createInitialTimeline(dataCircles) {
+
+   const currentPace = getPace(); 
+
+    dataLoaded = dataCircles;
 
     const initialTimelineMain = Math.floor(dataCircles.length / 2);
 
     dataCircles.forEach((value, index) => {
+
+        const distanceFromMain = initialTimelineMain - index;
 
         let infoBox = `<div class="infobox ${value.year}">
         <div>${value.year}</div>
@@ -49,19 +70,21 @@ function createInitialTimeline(dataCircles) {
 
         $('.timeline_circles').append(circle);
 
-        $('.circle').get(index).style.left = `${index * pace + 170}px`;
-
+        if(distanceFromMain !== initialTimelineMain){
+            $('.circle').get(index).style.left = `${ 50 - distanceFromMain * currentPace }%`;
+        } 
+        
     });
 
-    $('.timeline_circles').css({
-        transition: "transform 1s",
-        transform: "translateX(" + -200 + "px)"
-    });
-    setTimeout(function () {
-        $('.timeline_circles').css({
-            transition: "none"
-        })
-    }, 1000);
+    // $('.timeline_circles').css({
+    //     transition: "transform 1s",
+    //     transform: "translateX(" + 0 + "px)"
+    // });
+    // setTimeout(function () {
+    //     $('.timeline_circles').css({
+    //         transition: "none"
+    //     })
+    // }, 1000);
 
 }
 
@@ -69,6 +92,13 @@ $(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
     if ($(this).hasClass('main')) {
         return;
     }
+    
+    const years = dataLoaded.map(element => element.year);
+    
+    const indexOfMain = years.indexOf($('.circle.main').text()),
+        indexOfThis = years.indexOf($(this).text());
+    
+    const difference = indexOfMain - indexOfThis;
 
     const currentValueRaw = $('.timeline_circles').css("transform");
     let lastIndexCommma = currentValueRaw.lastIndexOf(",");
@@ -76,101 +106,29 @@ $(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
     let lastIndexComma2 = newString.lastIndexOf(",");
     const currentValue = parseInt(newString.substring(lastIndexComma2 + 1).trim());
 
-    // if (typeof e.originalEvent.detail == 'number' && e.originalEvent.detail !== 0) {
-    //     if (e.originalEvent.detail > 0) {
-    //         console.log('Down');
+    const fullScreen = $(window).width();
 
-    //     } else if (e.originalEvent.detail < 0) {
-    //         console.log('Up');
-    //     }
-    // } else if (typeof e.originalEvent.wheelDelta == 'number') {
-    //     if (e.originalEvent.wheelDelta < 0) {
-    //         console.log('Down');
-    //         adjustTimeline(currentValue + 100);
-    //         resetMain(this);
-    //     } else if (e.originalEvent.wheelDelta > 0) {
-    //         console.log('Up');
-    //         adjustTimeline(currentValue - 100);
-    //         resetMain(this);
-    //     }
-    // }
+    let percent = 0;
 
-    if ($(this).hasClass('prev')) {
-        adjustTimeline(currentValue + 100);
-        resetMain(this);
+    if(currentValue !== 0) {
+        percent = currentValue * 100 / fullScreen;
+        percent = Math.round(percent);
     }
 
-    if ($(this).next().hasClass('prev')) {
-        adjustTimeline(currentValue + 200);
-        resetMain(this);
-    }
+    const currentPace = getPace();
 
-    if ($(this).next().next().hasClass('prev')) {
-        adjustTimeline(currentValue + 300);
-        resetMain(this);
-    }
+    adjustTimeline(percent + difference * currentPace);
 
-    if ($(this).next().next().next().hasClass('prev')) {
-        adjustTimeline(currentValue + 400);
-        resetMain(this);
-    }
-
-    if ($(this).next().next().next().next().hasClass('prev')) {
-        adjustTimeline(currentValue + 500);
-        resetMain(this);
-    }
-
-    if ($(this).next().next().next().next().next().hasClass('prev')) {
-        adjustTimeline(currentValue + 600);
-        resetMain(this);
-    }
-
-    if ($(this).next().next().next().next().next().next().hasClass('prev')) {
-        adjustTimeline(currentValue + 700);
-        resetMain(this);
-    }
-
-    if ($(this).hasClass('next')) {
-        adjustTimeline(currentValue - 100);
-        resetMain(this);
-    }
-
-    if ($(this).prev().hasClass('next')) {
-        adjustTimeline(currentValue - 200);
-        resetMain(this);
-    }
-
-    if ($(this).prev().prev().hasClass('next')) {
-        adjustTimeline(currentValue - 300);
-        resetMain(this);
-    }
-
-    if ($(this).prev().prev().prev().hasClass('next')) {
-        adjustTimeline(currentValue - 400);
-        resetMain(this);
-    }
-
-    if ($(this).prev().prev().prev().prev().hasClass('next')) {
-        adjustTimeline(currentValue - 500);
-        resetMain(this);
-    }
-
-    if ($(this).prev().prev().prev().prev().prev().hasClass('next')) {
-        adjustTimeline(currentValue - 600);
-        resetMain(this);
-    }
-
-    if ($(this).prev().prev().prev().prev().prev().prev().hasClass('next')) {
-        adjustTimeline(currentValue - 700);
-        resetMain(this);
-    }
+    resetMain(this); 
+    
 });
 
 
 function adjustTimeline(size) {
+
     $('.timeline_circles').css({
         transition: "transform 1s",
-        transform: "translateX(" + size + "px)"
+        transform: "translateX(" + size + "%)"
     });
     setTimeout(function () {
         $('.timeline_circles').css({
@@ -184,7 +142,7 @@ function resetMain(newMain) {
     $('.infobox').removeClass('show');
     $(`.${newMain.id}`).addClass('show');
 
-    console.log($(`.${newMain.id}`));
+    //console.log($(`.${newMain.id}`));
 
     $('.circle').removeClass('main');
     $('.circle').removeClass('prev');

@@ -45,6 +45,7 @@ header h1 {
   width: 600px; 
   margin: auto; */
   height: 143px;
+  width: 100%;
 }
 
 #white_line {
@@ -71,6 +72,8 @@ header h1 {
   transform: translateX(-50%);
   font-size: 13px;
   color: #ff0062;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 
@@ -103,7 +106,9 @@ header h1 {
 }
 
 .timeline_circles {
+  width: 100%;
   margin-top: 41px;
+  transform: translateX(0);
 }
 
 .infobox {
