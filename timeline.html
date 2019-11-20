@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="timeline.css" />
+    <link rel="stylesheet" type="text/css" href="spectogram.css" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="timeline.css">
-  <title>Document</title>
-</head>
+  <body>
+    <header>
+      <h1>The Evolution of Electronic Music</h1>
+    </header>
 
-<body>
-  <header>
-    <h1>The Evolution of Electronic Music</h1>
-  </header>
-
-  <main>
-    <div id="container"></div>
-  </main>
-
-  <footer>
-
-    <div id="timeline">
-      <div id ="timeline-top"></div>
-      <div id="line">
-        <div id="white_line"></div>
-        <div class="timeline_circles"></div>
+    <main>
+      <div id="container"></div>
+    </main>
+    <section id="spectrum"></section>
+    <audio id="music" autoplay="true" loop="true" src="SynthPop.mp3"></audio>
+    <script src="spectrum.js"></script>
+    <footer>
+      <div id="timeline">
+        <div id="timeline-top"></div>
+        <div id="line">
+          <div id="white_line"></div>
+          <div class="timeline_circles"></div>
+        </div>
       </div>
-
-    </div>
-
-  </footer>
-
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="timeline.js"></script>
-
+    </footer>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="timeline.js"></script>
 </html>
