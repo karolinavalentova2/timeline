@@ -10,7 +10,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-main{
+main {
   height: calc(100vh - 173px - 60px);
   padding: 1rem 0;
   display: flex;
@@ -29,11 +29,13 @@ header {
 header h1 {
   margin: 0;
   color: white;
-  font-size: 22px;
-  padding-left: 7em;
+  font-size: 15px;
+  padding-left: 1em;
 }
 
-#logo-container {width: 4rem;}
+#logo-container {
+  width: 4rem;
+}
 
 #timeline {
   width: 100%;
@@ -85,7 +87,6 @@ header h1 {
   transform: translate(-50%);
 }
 
-
 .circle:not(.main):not(.prev):not(.next):hover {
   background: #21bfd6;
   color: #fff;
@@ -102,7 +103,7 @@ header h1 {
   font-size: 30px;
 }
 
-footer{
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -142,14 +143,16 @@ footer{
   position: relative;
 }
 
-.music-container{
+.music-container {
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: 25px;
+  padding-left: 50px;
+  z-index: 99;
 }
 
-.content{
-  width: 80%;
+.content {
+  width: 100%;
 }
 
 .container-top {
@@ -164,12 +167,35 @@ footer{
   display: block;
 }
 
+.modal-img {
+  width: 200px;
+  float: left;
+  margin: 25px 0px 0px 35px;
+}
+
+.modal-img img {
+  width: 100%;
+}
+
+.modal-position {
+  float: left;
+  margin: 25px 0 0 20px;
+}
+
+.modal-h1 {
+  font-size: 25px;
+}
+
+.modal-h2 {
+  font-size: 15px;
+  margin-top: 15px;
+}
+
 /* -------------------------- music player and donut chart */
 .play-song-container {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .donut-base {
@@ -185,6 +211,7 @@ footer{
   0% {
     stroke-dasharray: 0, 100;
   }
+
   100% {
     stroke-dasharray: 100, 0;
   }
@@ -200,12 +227,20 @@ footer{
 }
 
 .donut {
-  width: 8rem;
+  width: 4rem;
+}
+
+#progressDonut {
+  margin-left: 20px;
 }
 
 /* ----------------------------------- play and stop btn */
 #playBtn {
-  width: 7rem;
+  width: 3.5rem;
+}
+
+#play-button-SVG {
+  margin-left: 13em;
 }
 
 #playBtn:hover {
@@ -214,4 +249,15 @@ footer{
 
 #stopMusic {
   display: none;
+}
+
+@media only screen and (min-width: 666px) {
+  .content {
+    width: 660px;
+  }
+
+  header h1 {
+    font-size: 22px;
+    padding-left: 2em;
+  }
 }

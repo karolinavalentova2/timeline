@@ -10,41 +10,45 @@ function getData() {
             "x-apikey": "5dcad81864e7774913b6ebd3",
             "cache-control": "no-cache"
         }
-    }).then(result => result.json()).then(res => createInitialTimeline(res));
+    }).then(result => result.json()).then(res => {
+        res.sort((a, b) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0));
+        createInitialTimeline(res)
+    });
 }
 
 getData();
 
-function getPace(){
-    if($(window).width() <= 920 && !($(window).width() <= 460)){
+function getPace() {
+    if ($(window).width() <= 920 && !($(window).width() <= 460)) {
         return 2 * pace;
-    } 
+    }
 
-    if($(window).width() > 920){
+    if ($(window).width() > 920) {
         return pace;
     }
 
-    if($(window).width() <= 460){
+    if ($(window).width() <= 460) {
         return 3 * pace;
     }
 }
 
 function createInitialTimeline(dataCircles) {
 
-   const currentPace = getPace(); 
+    const currentPace = getPace();
 
     dataLoaded = dataCircles;
 
     const initialTimelineMain = Math.floor(dataCircles.length / 2);
 
     dataCircles.forEach((value, index) => {
-
         const distanceFromMain = initialTimelineMain - index;
 
         let infoBox = `<div class="infobox ${value.year}">
-        <div>${value.year}</div>
-        <div>${value.genre}</div>
-        <div>${value.origin}</div>
+        <div class="modal-img"><img src="assets/${value.year}.jpg"/></div>
+        <div class="modal-position">
+        <div class="modal-h1">Genre: ${value.genre}</div>
+        <div class="modal-h2">Origin: ${value.origin}</div>
+        </div>
         </div>`;
 
         let containerTop = `<div class="container-top"></div>`;
@@ -54,9 +58,11 @@ function createInitialTimeline(dataCircles) {
         if (index === initialTimelineMain) {
             circle = `<div id=${value.year} class="circle main">${value.year}</div>`;
             infoBox = `<div class="infobox show ${value.year}">
-            <div>${value.year}</div>
-            <div>${value.genre}</div>
-            <div>${value.origin}</div>
+            <div class="modal-img"><img src="assets/${value.year}.jpg"/></div>
+            <div class="modal-position">
+            <div class="modal-h1">Genre: ${value.genre}</div>
+            <div class="modal-h2">Origin: ${value.origin}</div>
+            </div>
             </div>`;
         } else if (index === initialTimelineMain - 1) {
             circle = `<div id=${value.year} class="circle prev">${value.year}</div>`;
@@ -70,10 +76,8 @@ function createInitialTimeline(dataCircles) {
 
         $('.timeline_circles').append(circle);
 
-        if(distanceFromMain !== initialTimelineMain){
-            $('.circle').get(index).style.left = `${ 50 - distanceFromMain * currentPace }%`;
-        } 
-        
+        $('.circle').get(index).style.left = `${ 50 - distanceFromMain * currentPace }%`;
+
     });
 
     // $('.timeline_circles').css({
@@ -85,19 +89,18 @@ function createInitialTimeline(dataCircles) {
     //         transition: "none"
     //     })
     // }, 1000);
-
 }
 
 $(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
     if ($(this).hasClass('main')) {
         return;
     }
-    
+
     const years = dataLoaded.map(element => element.year);
-    
+
     const indexOfMain = years.indexOf($('.circle.main').text()),
         indexOfThis = years.indexOf($(this).text());
-    
+
     const difference = indexOfMain - indexOfThis;
 
     const currentValueRaw = $('.timeline_circles').css("transform");
@@ -110,7 +113,7 @@ $(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
 
     let percent = 0;
 
-    if(currentValue !== 0) {
+    if (currentValue !== 0) {
         percent = currentValue * 100 / fullScreen;
         percent = Math.round(percent);
     }
@@ -119,10 +122,9 @@ $(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
 
     adjustTimeline(percent + difference * currentPace);
 
-    resetMain(this); 
-    
-});
+    resetMain(this);
 
+});
 
 function adjustTimeline(size) {
 
@@ -141,8 +143,6 @@ function resetMain(newMain) {
 
     $('.infobox').removeClass('show');
     $(`.${newMain.id}`).addClass('show');
-
-    //console.log($(`.${newMain.id}`));
 
     $('.circle').removeClass('main');
     $('.circle').removeClass('prev');
@@ -169,7 +169,7 @@ let isMusicPlaying = false;
 const MusicPlayer = new Audio("./assets/intro.mp3");
 let MusicPlayerPercentageUpdater;
 
-function doStart(){
+function doStart() {
     loadSVG();
 }
 
@@ -186,7 +186,7 @@ async function loadSVG() {
         startMusic();
         document.getElementById('progressDonut').innerHTML = SVG.progressDonut;
 
-    } catch(error) {
+    } catch (error) {
         console.error('Cannot read svg file, reason: ' + error.message);
     }
 }
@@ -195,7 +195,7 @@ function startMusic() {
     const playButton = document.getElementById("playBtn");
 
     playButton.onclick = async () => {
-        if(isMusicPlaying) {
+        if (isMusicPlaying) {
             MusicPlayer.pause();
             //MusicPlayer.currentTime = 0;
             isMusicPlaying = false;
@@ -210,7 +210,7 @@ function startMusic() {
             document.getElementById("playMusic").style.display = "none";
             document.getElementById("stopMusic").style.display = "block";
 
-            
+
         }
 
         MusicPlayerPercentageUpdater = setInterval(() => {
@@ -235,4 +235,3 @@ function calculatePercentage(currentSeconds, totalSeconds) {
 }
 
 document.body.onload = doStart;
-
