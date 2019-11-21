@@ -7,7 +7,7 @@ body {
   padding: 0;
   background: #3a3a3a;
   overflow: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 main {
@@ -16,6 +16,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 header {
@@ -118,7 +119,7 @@ footer {
   top: -10px;
   line-height: 62px;
   font-size: 18px;
-  color: white
+  color: white;
 }
 
 .timeline_circles {
@@ -249,6 +250,45 @@ footer {
 
 #stopMusic {
   display: none;
+}
+
+/*************************************
+
+spectrum
+
+****************************************/
+#spectrum {
+  position: absolute;
+  overflow: hidden;
+  height: 90%;
+  display: flex;
+  align-items: flex-end;
+  transform: rotate(0);
+  bottom: -1px;
+  left: 0;
+  transform-origin: bottom;
+  pointer-events: none;
+  z-index: -1;
+}
+/*************************************
+
+audiobars
+
+****************************************/
+.audiobar {
+  width: calc(1vw - 1px);
+  height: 100%;
+  background: #161616;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  transition: 0.1s;
+  transform-origin: bottom;
+  will-change: transform;
+}
+.audiobar + .audiobar {
+  margin-left: 5px;
 }
 
 @media only screen and (min-width: 666px) {
