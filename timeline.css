@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 :root {
   --main-color: #ff0062;
   --alt-color: #7f003a;
@@ -271,6 +272,7 @@ spectrum
   pointer-events: none;
   z-index: -1;
 }
+
 /*************************************
 
 audiobars
@@ -288,7 +290,8 @@ audiobars
   transform-origin: bottom;
   will-change: transform;
 }
-.audiobar + .audiobar {
+
+.audiobar+.audiobar {
   margin-left: 5px;
 }
 
