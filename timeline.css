@@ -1,6 +1,10 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  --main-color: #ff0062;
+  --alt-color: #7f003a;
+}
 
 body {
   margin: 0;
@@ -53,9 +57,6 @@ header h1 {
 
 #line {
   position: relative;
-  /* overflow: hidden;
-  width: 600px; 
-  margin: auto; */
   height: 143px;
   width: 100%;
 }
@@ -63,7 +64,7 @@ header h1 {
 #white_line {
   height: 5px;
   width: 100%;
-  background: white;
+  background: var(--main-color);
   border-radius: 5px;
   top: 48%;
   margin: auto;
@@ -73,28 +74,27 @@ header h1 {
 .circle {
   width: 40px;
   height: 40px;
-  background: #ff0062;
+  background: var(--main-color);
   border-radius: 50%;
   position: absolute;
   top: 5px;
-  border: 3px solid white;
   cursor: pointer;
   text-align: center;
   line-height: 36px;
-  transform: translateX(-50%);
+  /*transform: translateX(-50%);*/
   font-size: 13px;
-  color: #ff0062;
+  color: var(--main-color);
   left: 50%;
   transform: translate(-50%);
 }
 
 .circle:not(.main):not(.prev):not(.next):hover {
-  background: #21bfd6;
+  background: var(--alt-color);
   color: #fff;
 }
 
 .circle.main {
-  background: #21bfd6;
+  background: var(--main-color);
   color: white;
   transition: 0.3s;
   width: 110px;
@@ -112,7 +112,7 @@ footer {
 
 .circle.prev,
 .circle.next {
-  background: #009aff;
+  background: var(--alt-color);
   transition: 0.3s;
   width: 70px;
   height: 70px;
