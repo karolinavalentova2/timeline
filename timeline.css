@@ -7,7 +7,7 @@ body {
   padding: 0;
   background: #3a3a3a;
   overflow: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 main {
@@ -118,7 +118,7 @@ footer {
   top: -10px;
   line-height: 62px;
   font-size: 18px;
-  color: white
+  color: white;
 }
 
 .timeline_circles {
@@ -153,6 +153,7 @@ footer {
 
 .content {
   width: 100%;
+  box-shadow: 10px 10px 0 #ff0062, 20px 20px 0 #7f003a;
 }
 
 .container-top {
