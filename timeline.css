@@ -155,7 +155,27 @@ footer {
 
 .content {
   width: 100%;
-  box-shadow: 10px 10px 0 #ff0062, 20px 20px 0 #7f003a;
+  position: relative;
+  z-index: 5;
+  /*box-shadow: 10px 10px 0 #ff0062, 20px 20px 0 #7f003a;*/
+}
+.content::before,
+.content::after {
+  content: "";
+  width: inherit;
+  height: 100%;
+  position: absolute;
+}
+.content::before {
+  background: #ff0062;
+  top: 10px;
+  left: 10px;
+}
+.content::after {
+  background: #7f003a;
+  top: 20px;
+  left: 20px;
+  z-index: -6;
 }
 
 .container-top {
@@ -270,7 +290,8 @@ spectrum
   left: 0;
   transform-origin: bottom;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
+  margin: 0 0 0 calc(0px - 1vw);
 }
 
 /*************************************
@@ -291,7 +312,7 @@ audiobars
   will-change: transform;
 }
 
-.audiobar+.audiobar {
+.audiobar + .audiobar {
   margin-left: 5px;
 }
 

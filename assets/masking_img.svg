@@ -3,6 +3,7 @@
   <image width="720" height="720" href="../assets/masking_img_opti.jpg" clip-path="url(#masking)" />
 
   <clipPath id="masking">
+      <rect class="mscBox_00" x="000" y="0" width="80" height="80"/>
       <rect class="mscBox_01" x="090" y="0" width="80" height="80"/>
       <rect class="mscBox_02" x="180" y="0" width="80" height="80"/>
       <rect class="mscBox_03" x="270" y="0" width="80" height="80"/>
@@ -10,6 +11,7 @@
       <rect class="mscBox_05" x="450" y="0" width="80" height="80"/>
       <rect class="mscBox_06" x="540" y="0" width="80" height="80"/>
       <rect class="mscBox_07" x="630" y="0" width="80" height="80"/>
+      <rect class="mscBox_00--" x="000" y="090" width="80" height="80"/>
       <rect class="mscBox_08" x="090" y="090" width="80" height="80"/>
       <rect class="mscBox_09" x="180" y="090" width="80" height="80"/>
       <rect class="mscBox_10" x="270" y="090" width="80" height="80"/>
@@ -17,6 +19,7 @@
       <rect class="mscBox_12" x="450" y="090" width="80" height="80"/>
       <rect class="mscBox_13" x="540" y="090" width="80" height="80"/>
       <rect class="mscBox_14" x="630" y="090" width="80" height="80"/>
+      <rect class="mscBox_00" x="000--" y="180" width="80" height="80"/>
       <rect class="mscBox_15" x="090" y="180" width="80" height="80"/>
       <rect class="mscBox_16" x="180" y="180" width="80" height="80"/>
       <rect class="mscBox_17" x="270" y="180" width="80" height="80"/>
@@ -24,6 +27,7 @@
       <rect class="mscBox_19" x="450" y="180" width="80" height="80"/>
       <rect class="mscBox_20" x="540" y="180" width="80" height="80"/>
       <rect class="mscBox_21" x="630" y="180" width="80" height="80"/>
+      <rect class="mscBox_00" x="000--" y="270" width="80" height="80"/>
       <rect class="mscBox_22" x="090" y="270" width="80" height="80"/>
       <rect class="mscBox_23" x="180" y="270" width="80" height="80"/>
       <rect class="mscBox_24" x="270" y="270" width="80" height="80"/>
@@ -31,6 +35,7 @@
       <rect class="mscBox_26" x="450" y="270" width="80" height="80"/>
       <rect class="mscBox_27" x="540" y="270" width="80" height="80"/>
       <rect class="mscBox_28" x="630" y="270" width="80" height="80"/>
+      <rect class="mscBox_00" x="000--" y="360" width="80" height="80"/>
       <rect class="mscBox_29" x="090" y="360" width="80" height="80"/>
       <rect class="mscBox_30" x="180" y="360" width="80" height="80"/>
       <rect class="mscBox_31" x="270" y="360" width="80" height="80"/>
@@ -38,6 +43,7 @@
       <rect class="mscBox_33" x="450" y="360" width="80" height="80"/>
       <rect class="mscBox_34" x="540" y="360" width="80" height="80"/>
       <rect class="mscBox_35" x="630" y="360" width="80" height="80"/>
+      <rect class="mscBox_00" x="000--" y="450" width="80" height="80"/>
       <rect class="mscBox_36" x="090" y="450" width="80" height="80"/>
       <rect class="mscBox_37" x="180" y="450" width="80" height="80"/>
       <rect class="mscBox_38" x="270" y="450" width="80" height="80"/>
@@ -45,6 +51,7 @@
       <rect class="mscBox_40" x="450" y="450" width="80" height="80"/>
       <rect class="mscBox_41" x="540" y="450" width="80" height="80"/>
       <rect class="mscBox_42" x="630" y="450" width="80" height="80"/>
+      <rect class="mscBox_00" x="000--" y="540" width="80" height="80"/>
       <rect class="mscBox_43" x="090" y="540" width="80" height="80"/>
       <rect class="mscBox_44" x="180" y="540" width="80" height="80"/>
       <rect class="mscBox_45" x="270" y="540" width="80" height="80"/>
@@ -52,5 +59,13 @@
       <rect class="mscBox_47" x="450" y="540" width="80" height="80"/>
       <rect class="mscBox_48" x="540" y="540" width="80" height="80"/>
       <rect class="mscBox_49" x="630" y="540" width="80" height="80"/>
+      <rect class="mscBox_00" x="000--" y="630" width="80" height="80"/>
+      <rect class="mscBox_43" x="090" y="630" width="80" height="80"/>
+      <rect class="mscBox_44" x="180" y="630" width="80" height="80"/>
+      <rect class="mscBox_45" x="270" y="630" width="80" height="80"/>
+      <rect class="mscBox_46" x="360" y="630" width="80" height="80"/>
+      <rect class="mscBox_47" x="450" y="630" width="80" height="80"/>
+      <rect class="mscBox_48" x="540" y="630" width="80" height="80"/>
+      <rect class="mscBox_49" x="630" y="630" width="80" height="80"/>
   </clipPath>
 </svg>
