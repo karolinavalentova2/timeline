@@ -4,13 +4,13 @@ let dataLoaded = null;
 
 function getData() {
   fetch(dataLink, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=uf-8",
-        "x-apikey": "5dcad81864e7774913b6ebd3",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json; charset=uf-8",
+      "x-apikey": "5dcad81864e7774913b6ebd3",
+      "cache-control": "no-cache"
+    }
+  })
     .then(result => result.json())
     .then(res => {
       res.sort((a, b) => (a.year > b.year ? 1 : b.year > a.year ? -1 : 0));
@@ -39,7 +39,9 @@ function createInitialTimeline(dataCircles) {
 
   dataLoaded = dataCircles;
 
-  const initialTimelineMain = Math.floor(dataCircles.length / 2);
+  const initialTimelineMain = Math.floor(
+    dataCircles.length - dataCircles.length
+  );
 
   dataCircles.forEach((value, index) => {
     const distanceFromMain = initialTimelineMain - index;
@@ -49,51 +51,59 @@ function createInitialTimeline(dataCircles) {
     let infoBox = `<div class="infobox ${value.year}">
         <div class="modal-img"><svg class="clip-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 720">
 
-        <image width="720" height="720" href="assets/${value.year}.jpg" clip-path="url(#masking)" />
-      
-        <clipPath id="masking">
-            <rect class="mscBox_01" x="090" y="0" width="80" height="80"/>
-            <rect class="mscBox_02" x="180" y="0" width="80" height="80"/>
-            <rect class="mscBox_03" x="270" y="0" width="80" height="80"/>
-            <rect class="mscBox_04" x="360" y="0" width="80" height="80"/>
-            <rect class="mscBox_05" x="450" y="0" width="80" height="80"/>
-            <rect class="mscBox_06" x="540" y="0" width="80" height="80"/>
-            <rect class="mscBox_07" x="630" y="0" width="80" height="80"/>
-            <rect class="mscBox_08" x="090" y="090" width="80" height="80"/>
-            <rect class="mscBox_09" x="180" y="090" width="80" height="80"/>
-            <rect class="mscBox_10" x="270" y="090" width="80" height="80"/>
-            <rect class="mscBox_11" x="360" y="090" width="80" height="80"/>
-            <rect class="mscBox_12" x="450" y="090" width="80" height="80"/>
-            <rect class="mscBox_13" x="540" y="090" width="80" height="80"/>
-            <rect class="mscBox_14" x="630" y="090" width="80" height="80"/>
-            <rect class="mscBox_15" x="090" y="180" width="80" height="80"/>
-            <rect class="mscBox_16" x="180" y="180" width="80" height="80"/>
-            <rect class="mscBox_17" x="270" y="180" width="80" height="80"/>
-            <rect class="mscBox_18" x="360" y="180" width="80" height="80"/>
-            <rect class="mscBox_19" x="450" y="180" width="80" height="80"/>
-            <rect class="mscBox_20" x="540" y="180" width="80" height="80"/>
-            <rect class="mscBox_21" x="630" y="180" width="80" height="80"/>
-            <rect class="mscBox_22" x="090" y="270" width="80" height="80"/>
-            <rect class="mscBox_23" x="180" y="270" width="80" height="80"/>
-            <rect class="mscBox_24" x="270" y="270" width="80" height="80"/>
-            <rect class="mscBox_25" x="360" y="270" width="80" height="80"/>
-            <rect class="mscBox_26" x="450" y="270" width="80" height="80"/>
-            <rect class="mscBox_27" x="540" y="270" width="80" height="80"/>
-            <rect class="mscBox_28" x="630" y="270" width="80" height="80"/>
-            <rect class="mscBox_29" x="090" y="360" width="80" height="80"/>
-            <rect class="mscBox_30" x="180" y="360" width="80" height="80"/>
-            <rect class="mscBox_31" x="270" y="360" width="80" height="80"/>
-            <rect class="mscBox_32" x="360" y="360" width="80" height="80"/>
-            <rect class="mscBox_33" x="450" y="360" width="80" height="80"/>
-            <rect class="mscBox_34" x="540" y="360" width="80" height="80"/>
-            <rect class="mscBox_35" x="630" y="360" width="80" height="80"/>
-            <rect class="mscBox_36" x="090" y="450" width="80" height="80"/>
-            <rect class="mscBox_37" x="180" y="450" width="80" height="80"/>
-            <rect class="mscBox_38" x="270" y="450" width="80" height="80"/>
-            <rect class="mscBox_39" x="360" y="450" width="80" height="80"/>
-            <rect class="mscBox_40" x="450" y="450" width="80" height="80"/>
-            <rect class="mscBox_41" x="540" y="450" width="80" height="80"/>
-            <rect class="mscBox_42" x="630" y="450" width="80" height="80"/>
+        <image width="720" height="720" href="assets/${value.year}.jpg" mask="url(#masking)" />
+          
+        <mask id="masking">
+        <g fill="white">
+            <rect class="mscBox_01" x="000" y="0" width="80" height="80"/>
+            <rect class="mscBox_02" x="090" y="0" width="80" height="80"/>
+            <rect class="mscBox_03" x="180" y="0" width="80" height="80"/>
+            <rect class="mscBox_04" x="270" y="0" width="80" height="80"/>
+            <rect class="mscBox_05" x="360" y="0" width="80" height="80"/>
+            <rect class="mscBox_06" x="450" y="0" width="80" height="80"/>
+            <rect class="mscBox_07" x="540" y="0" width="80" height="80"/>
+            <rect class="mscBox_08" x="630" y="0" width="80" height="80"/>
+            <rect class="mscBox_09" x="000" y="090" width="80" height="80"/>
+            <rect class="mscBox_10" x="090" y="090" width="80" height="80"/>
+            <rect class="mscBox_11" x="180" y="090" width="80" height="80"/>
+            <rect class="mscBox_12" x="270" y="090" width="80" height="80"/>
+            <rect class="mscBox_13" x="360" y="090" width="80" height="80"/>
+            <rect class="mscBox_14" x="450" y="090" width="80" height="80"/>
+            <rect class="mscBox_15" x="540" y="090" width="80" height="80"/>
+            <rect class="mscBox_16" x="630" y="090" width="80" height="80"/>
+            <rect class="mscBox_17" x="000" y="180" width="80" height="80"/>
+            <rect class="mscBox_18" x="090" y="180" width="80" height="80"/>
+            <rect class="mscBox_19" x="180" y="180" width="80" height="80"/>
+            <rect class="mscBox_20" x="270" y="180" width="80" height="80"/>
+            <rect class="mscBox_21" x="360" y="180" width="80" height="80"/>
+            <rect class="mscBox_22" x="450" y="180" width="80" height="80"/>
+            <rect class="mscBox_23" x="540" y="180" width="80" height="80"/>
+            <rect class="mscBox_24" x="630" y="180" width="80" height="80"/>
+            <rect class="mscBox_25" x="000" y="270" width="80" height="80"/>
+            <rect class="mscBox_26" x="090" y="270" width="80" height="80"/>
+            <rect class="mscBox_27" x="180" y="270" width="80" height="80"/>
+            <rect class="mscBox_28" x="270" y="270" width="80" height="80"/>
+            <rect class="mscBox_29" x="360" y="270" width="80" height="80"/>
+            <rect class="mscBox_30" x="450" y="270" width="80" height="80"/>
+            <rect class="mscBox_31" x="540" y="270" width="80" height="80"/>
+            <rect class="mscBox_32" x="630" y="270" width="80" height="80"/>
+            <rect class="mscBox_33" x="000" y="360" width="80" height="80"/>
+            <rect class="mscBox_34" x="090" y="360" width="80" height="80"/>
+            <rect class="mscBox_35" x="180" y="360" width="80" height="80"/>
+            <rect class="mscBox_36" x="270" y="360" width="80" height="80"/>
+            <rect class="mscBox_37" x="360" y="360" width="80" height="80"/>
+            <rect class="mscBox_38" x="450" y="360" width="80" height="80"/>
+            <rect class="mscBox_39" x="540" y="360" width="80" height="80"/>
+            <rect class="mscBox_40" x="630" y="360" width="80" height="80"/>
+            <rect class="mscBox_41" x="000" y="450" width="80" height="80"/>
+            <rect class="mscBox_42" x="090" y="450" width="80" height="80"/>
+            <rect class="mscBox_43" x="180" y="450" width="80" height="80"/>
+            <rect class="mscBox_44" x="270" y="450" width="80" height="80"/>
+            <rect class="mscBox_45" x="360" y="450" width="80" height="80"/>
+            <rect class="mscBox_46" x="450" y="450" width="80" height="80"/>
+            <rect class="mscBox_47" x="540" y="450" width="80" height="80"/>
+            <rect class="mscBox_48" x="630" y="450" width="80" height="80"/>
+            <rect class="mscBox_49" x="000" y="540" width="80" height="80"/>
             <rect class="mscBox_43" x="090" y="540" width="80" height="80"/>
             <rect class="mscBox_44" x="180" y="540" width="80" height="80"/>
             <rect class="mscBox_45" x="270" y="540" width="80" height="80"/>
@@ -101,8 +111,17 @@ function createInitialTimeline(dataCircles) {
             <rect class="mscBox_47" x="450" y="540" width="80" height="80"/>
             <rect class="mscBox_48" x="540" y="540" width="80" height="80"/>
             <rect class="mscBox_49" x="630" y="540" width="80" height="80"/>
-        </clipPath>
-      </svg>
+            <rect class="mscBox_50" x="000" y="630" width="80" height="80"/>
+            <rect class="mscBox_51" x="090" y="630" width="80" height="80"/>
+            <rect class="mscBox_52" x="180" y="630" width="80" height="80"/>
+            <rect class="mscBox_53" x="270" y="630" width="80" height="80"/>
+            <rect class="mscBox_54" x="360" y="630" width="80" height="80"/>
+            <rect class="mscBox_55" x="450" y="630" width="80" height="80"/>
+            <rect class="mscBox_56" x="540" y="630" width="80" height="80"/>
+            <rect class="mscBox_57" x="630" y="630" width="80" height="80"/>
+            </g>
+        </mask>
+        </svg>
       </div>
         <div class="modal-position">
         <div class="modal-h1">Genre: ${value.genre}</div>
@@ -119,51 +138,59 @@ function createInitialTimeline(dataCircles) {
       infoBox = `<div class="infobox show ${value.year}">
             <div class="modal-img"><svg class="clip-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 720">
 
-            <image width="720" height="720" href="assets/${value.year}.jpg" clip-path="url(#masking)" />
+            <image width="720" height="720" href="assets/${value.year}.jpg" mask="url(#masking)" />
           
-            <clipPath id="masking">
-                <rect class="mscBox_01" x="090" y="0" width="80" height="80"/>
-                <rect class="mscBox_02" x="180" y="0" width="80" height="80"/>
-                <rect class="mscBox_03" x="270" y="0" width="80" height="80"/>
-                <rect class="mscBox_04" x="360" y="0" width="80" height="80"/>
-                <rect class="mscBox_05" x="450" y="0" width="80" height="80"/>
-                <rect class="mscBox_06" x="540" y="0" width="80" height="80"/>
-                <rect class="mscBox_07" x="630" y="0" width="80" height="80"/>
-                <rect class="mscBox_08" x="090" y="090" width="80" height="80"/>
-                <rect class="mscBox_09" x="180" y="090" width="80" height="80"/>
-                <rect class="mscBox_10" x="270" y="090" width="80" height="80"/>
-                <rect class="mscBox_11" x="360" y="090" width="80" height="80"/>
-                <rect class="mscBox_12" x="450" y="090" width="80" height="80"/>
-                <rect class="mscBox_13" x="540" y="090" width="80" height="80"/>
-                <rect class="mscBox_14" x="630" y="090" width="80" height="80"/>
-                <rect class="mscBox_15" x="090" y="180" width="80" height="80"/>
-                <rect class="mscBox_16" x="180" y="180" width="80" height="80"/>
-                <rect class="mscBox_17" x="270" y="180" width="80" height="80"/>
-                <rect class="mscBox_18" x="360" y="180" width="80" height="80"/>
-                <rect class="mscBox_19" x="450" y="180" width="80" height="80"/>
-                <rect class="mscBox_20" x="540" y="180" width="80" height="80"/>
-                <rect class="mscBox_21" x="630" y="180" width="80" height="80"/>
-                <rect class="mscBox_22" x="090" y="270" width="80" height="80"/>
-                <rect class="mscBox_23" x="180" y="270" width="80" height="80"/>
-                <rect class="mscBox_24" x="270" y="270" width="80" height="80"/>
-                <rect class="mscBox_25" x="360" y="270" width="80" height="80"/>
-                <rect class="mscBox_26" x="450" y="270" width="80" height="80"/>
-                <rect class="mscBox_27" x="540" y="270" width="80" height="80"/>
-                <rect class="mscBox_28" x="630" y="270" width="80" height="80"/>
-                <rect class="mscBox_29" x="090" y="360" width="80" height="80"/>
-                <rect class="mscBox_30" x="180" y="360" width="80" height="80"/>
-                <rect class="mscBox_31" x="270" y="360" width="80" height="80"/>
-                <rect class="mscBox_32" x="360" y="360" width="80" height="80"/>
-                <rect class="mscBox_33" x="450" y="360" width="80" height="80"/>
-                <rect class="mscBox_34" x="540" y="360" width="80" height="80"/>
-                <rect class="mscBox_35" x="630" y="360" width="80" height="80"/>
-                <rect class="mscBox_36" x="090" y="450" width="80" height="80"/>
-                <rect class="mscBox_37" x="180" y="450" width="80" height="80"/>
-                <rect class="mscBox_38" x="270" y="450" width="80" height="80"/>
-                <rect class="mscBox_39" x="360" y="450" width="80" height="80"/>
-                <rect class="mscBox_40" x="450" y="450" width="80" height="80"/>
-                <rect class="mscBox_41" x="540" y="450" width="80" height="80"/>
-                <rect class="mscBox_42" x="630" y="450" width="80" height="80"/>
+            <mask id="masking">
+            <g fill="white">
+                <rect class="mscBox_01" x="000" y="0" width="80" height="80"/>
+                <rect class="mscBox_02" x="090" y="0" width="80" height="80"/>
+                <rect class="mscBox_03" x="180" y="0" width="80" height="80"/>
+                <rect class="mscBox_04" x="270" y="0" width="80" height="80"/>
+                <rect class="mscBox_05" x="360" y="0" width="80" height="80"/>
+                <rect class="mscBox_06" x="450" y="0" width="80" height="80"/>
+                <rect class="mscBox_07" x="540" y="0" width="80" height="80"/>
+                <rect class="mscBox_08" x="630" y="0" width="80" height="80"/>
+                <rect class="mscBox_09" x="000" y="090" width="80" height="80"/>
+                <rect class="mscBox_10" x="090" y="090" width="80" height="80"/>
+                <rect class="mscBox_11" x="180" y="090" width="80" height="80"/>
+                <rect class="mscBox_12" x="270" y="090" width="80" height="80"/>
+                <rect class="mscBox_13" x="360" y="090" width="80" height="80"/>
+                <rect class="mscBox_14" x="450" y="090" width="80" height="80"/>
+                <rect class="mscBox_15" x="540" y="090" width="80" height="80"/>
+                <rect class="mscBox_16" x="630" y="090" width="80" height="80"/>
+                <rect class="mscBox_17" x="000" y="180" width="80" height="80"/>
+                <rect class="mscBox_18" x="090" y="180" width="80" height="80"/>
+                <rect class="mscBox_19" x="180" y="180" width="80" height="80"/>
+                <rect class="mscBox_20" x="270" y="180" width="80" height="80"/>
+                <rect class="mscBox_21" x="360" y="180" width="80" height="80"/>
+                <rect class="mscBox_22" x="450" y="180" width="80" height="80"/>
+                <rect class="mscBox_23" x="540" y="180" width="80" height="80"/>
+                <rect class="mscBox_24" x="630" y="180" width="80" height="80"/>
+                <rect class="mscBox_25" x="000" y="270" width="80" height="80"/>
+                <rect class="mscBox_26" x="090" y="270" width="80" height="80"/>
+                <rect class="mscBox_27" x="180" y="270" width="80" height="80"/>
+                <rect class="mscBox_28" x="270" y="270" width="80" height="80"/>
+                <rect class="mscBox_29" x="360" y="270" width="80" height="80"/>
+                <rect class="mscBox_30" x="450" y="270" width="80" height="80"/>
+                <rect class="mscBox_31" x="540" y="270" width="80" height="80"/>
+                <rect class="mscBox_32" x="630" y="270" width="80" height="80"/>
+                <rect class="mscBox_33" x="000" y="360" width="80" height="80"/>
+                <rect class="mscBox_34" x="090" y="360" width="80" height="80"/>
+                <rect class="mscBox_35" x="180" y="360" width="80" height="80"/>
+                <rect class="mscBox_36" x="270" y="360" width="80" height="80"/>
+                <rect class="mscBox_37" x="360" y="360" width="80" height="80"/>
+                <rect class="mscBox_38" x="450" y="360" width="80" height="80"/>
+                <rect class="mscBox_39" x="540" y="360" width="80" height="80"/>
+                <rect class="mscBox_40" x="630" y="360" width="80" height="80"/>
+                <rect class="mscBox_41" x="000" y="450" width="80" height="80"/>
+                <rect class="mscBox_42" x="090" y="450" width="80" height="80"/>
+                <rect class="mscBox_43" x="180" y="450" width="80" height="80"/>
+                <rect class="mscBox_44" x="270" y="450" width="80" height="80"/>
+                <rect class="mscBox_45" x="360" y="450" width="80" height="80"/>
+                <rect class="mscBox_46" x="450" y="450" width="80" height="80"/>
+                <rect class="mscBox_47" x="540" y="450" width="80" height="80"/>
+                <rect class="mscBox_48" x="630" y="450" width="80" height="80"/>
+                <rect class="mscBox_49" x="000" y="540" width="80" height="80"/>
                 <rect class="mscBox_43" x="090" y="540" width="80" height="80"/>
                 <rect class="mscBox_44" x="180" y="540" width="80" height="80"/>
                 <rect class="mscBox_45" x="270" y="540" width="80" height="80"/>
@@ -171,7 +198,16 @@ function createInitialTimeline(dataCircles) {
                 <rect class="mscBox_47" x="450" y="540" width="80" height="80"/>
                 <rect class="mscBox_48" x="540" y="540" width="80" height="80"/>
                 <rect class="mscBox_49" x="630" y="540" width="80" height="80"/>
-            </clipPath>
+                <rect class="mscBox_50" x="000" y="630" width="80" height="80"/>
+                <rect class="mscBox_51" x="090" y="630" width="80" height="80"/>
+                <rect class="mscBox_52" x="180" y="630" width="80" height="80"/>
+                <rect class="mscBox_53" x="270" y="630" width="80" height="80"/>
+                <rect class="mscBox_54" x="360" y="630" width="80" height="80"/>
+                <rect class="mscBox_55" x="450" y="630" width="80" height="80"/>
+                <rect class="mscBox_56" x="540" y="630" width="80" height="80"/>
+                <rect class="mscBox_57" x="630" y="630" width="80" height="80"/>
+                </g>
+            </mask>
           </svg>
           </div>
             <div class="modal-position">
@@ -206,7 +242,7 @@ function createInitialTimeline(dataCircles) {
   // }, 1000);
 }
 
-$(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
+$(document).on("click mousewheel DOMMouseScroll", ".circle", function(e) {
   if ($(this).hasClass("main")) {
     return;
   }
@@ -247,7 +283,7 @@ function adjustTimeline(size) {
     transition: "transform 1s",
     transform: "translateX(" + size + "%)"
   });
-  setTimeout(function () {
+  setTimeout(function() {
     $(".timeline_circles").css({
       transition: "none"
     });
@@ -436,7 +472,7 @@ function startSpectrum() {
     audioinfo.analyser.getFloatFrequencyData(audioinfo.frequencyData);
     // analyser has maxDecibels and minDecibels (-30 and -100 default, )
     // also a smoothing time-contant
-    //    console.log("freq("+audioinfo.frequencyData.length+"): " + audioinfo.frequencyData );
+    // console.log("freq("+audioinfo.frequencyData.length+"): " + audioinfo.frequencyData );
 
     // the array of frequencydata contains 1024 values of frequency-data
 
@@ -481,3 +517,7 @@ function startSpectrum() {
 }
 startSpectrum();
 document.body.onload = doStart;
+console.log(
+  "%cHello World",
+  "background: black; color: white; font-size: 25px; padding: 5px; box-shadow: 5px 5px 10px black;"
+);
