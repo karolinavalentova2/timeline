@@ -315,6 +315,82 @@ audiobars
 .audiobar + .audiobar {
   margin-left: 5px;
 }
+/***************************
+
+  SVG Animation
+
+***************************/
+#masking rect {
+  --fade-out: 0.2;
+  --fade-in: 1;
+  --delay: 0.5s;
+
+  --time: 1s;
+  opacity: var(--fade-in);
+}
+#masking rect:nth-child(1) {
+  animation: blink var(--time) infinite;
+}
+#masking rect:nth-child(2) {
+  animation: blink calc(var(--time) + 0.5s) calc(var(--delay) + 0.5s) infinite;
+}
+#masking rect:nth-child(3) {
+  animation: blink var(--time) infinite;
+}
+#masking rect:nth-child(7) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(9) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(13) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(16) {
+  animation: blink var(--time) infinite;
+}
+#masking rect:nth-child(19) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(30) {
+  animation: blink var(--time) infinite;
+}
+#masking rect:nth-child(33) {
+  animation: blink var(--time) infinite;
+}
+#masking rect:nth-child(35) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(40) {
+  animation: blink calc(var(--time) + 1s) infinite;
+}
+#masking rect:nth-child(42) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(52) {
+  animation: blink var(--time) var(--delay) infinite;
+}
+#masking rect:nth-child(61) {
+  animation: blink var(--time) infinite;
+}
+#masking rect:nth-child(64) {
+  animation: blink var(--time) infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: var(--fade-in);
+  }
+  59% {
+    opacity: var(--fade-in);
+  }
+  60% {
+    opacity: var(--fade-out);
+  }
+  100% {
+    opacity: var(--fade-out);
+  }
+}
 
 @media only screen and (min-width: 666px) {
   .content {
