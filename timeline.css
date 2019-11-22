@@ -7,7 +7,6 @@
 :root {
   --main-color: #ff0062;
   --alt-color: #7f003a;
-
   --bg-color: #3a3a3a;
   --gray-color: #212121;
   --black-color: #161616;
@@ -135,6 +134,7 @@ footer {
   margin-top: 41px;
   transform: translateX(0);
 }
+
 /************************
 
   Modal container / Content
@@ -150,113 +150,39 @@ footer {
   box-shadow: 10px 10px 0 var(--main-color), 20px 20px 0 var(--alt-color);
   z-index: 1;
 }
+
 #topbar {
   grid-column: 1 / -1;
   background: var(--black-color);
   color: white;
   padding: 15px;
 }
+
 #modalMusicContainer {
   display: flex;
   align-items: center;
 }
+
 #content article:last-child {
   overflow-y: scroll;
 }
-/************************
 
-  Old CSS start
-
-***********************/
-/*.infobox {
-  position: absolute;
-  width: 100%;
-  color: #009aff;
-  display: none;
-  top: 15%;
+#description::-webkit-scrollbar {
+  width: 10px;
 }
 
-#container {
-  width: 100%;
-  height: 300px;
-  background: var(--gray-color);
-  margin: 0 auto;
-  position: relative;
+#description::-webkit-scrollbar-track {
+  --black-color: #161616;
 }
 
-.music-container {
-  position: absolute;
-  width: 100%;
-  bottom: 25px;
-  padding-left: 50px;
-  z-index: 99;
+#description::-webkit-scrollbar-thumb {
+  background: #8652d0;
+  border-radius: 10px;
 }
 
-.content {
-  width: 100%;
-  position: relative;
-  z-index: 5;
-  /*box-shadow: 10px 10px 0 #ff0062, 20px 20px 0 #7f003a;
+#description::-webkit-scrollbar-thumb:hover {
+  background: rgba(134, 82, 208, 0.5);
 }
-.content::before,
-.content::after {
-  content: "";
-  width: inherit;
-  height: 100%;
-  position: absolute;
-}
-.content::before {
-  background: #ff0062;
-  top: 10px;
-  left: 10px;
-}
-.content::after {
-  background: #7f003a;
-  top: 20px;
-  left: 20px;
-  z-index: -6;
-}
-
-.container-top {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 40px;
-  background: var(--black-color);
-}
-
-.show {
-  display: block;
-}
-
-.modal-img {
-  width: 200px;
-  float: left;
-  margin: 25px 0px 0px 35px;
-}
-
-.modal-img img {
-  width: 100%;
-}
-
-.modal-position {
-  float: left;
-  margin: 25px 0 0 20px;
-}
-
-.modal-h1 {
-  font-size: 25px;
-}
-
-.modal-h2 {
-  font-size: 15px;
-  margin-top: 15px;
-}*/
-/************************
-
-  Old CSS end
-
-***********************/
 
 /* -------------------------- music player and donut chart */
 .play-song-container {
@@ -356,9 +282,10 @@ audiobars
   will-change: transform;
 }
 
-.audiobar + .audiobar {
+.audiobar+.audiobar {
   margin-left: 5px;
 }
+
 /***************************
 
   SVG Animation
@@ -372,51 +299,67 @@ audiobars
   --time: 1s;
   opacity: var(--fade-in);
 }
+
 #masking rect:nth-child(1) {
   animation: blink var(--time) infinite;
 }
+
 #masking rect:nth-child(2) {
   animation: blink calc(var(--time) + 0.5s) calc(var(--delay) + 0.5s) infinite;
 }
+
 #masking rect:nth-child(3) {
   animation: blink var(--time) infinite;
 }
+
 #masking rect:nth-child(7) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(9) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(13) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(16) {
   animation: blink var(--time) infinite;
 }
+
 #masking rect:nth-child(19) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(30) {
   animation: blink var(--time) infinite;
 }
+
 #masking rect:nth-child(33) {
   animation: blink var(--time) infinite;
 }
+
 #masking rect:nth-child(35) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(40) {
   animation: blink calc(var(--time) + 1s) infinite;
 }
+
 #masking rect:nth-child(42) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(52) {
   animation: blink var(--time) var(--delay) infinite;
 }
+
 #masking rect:nth-child(61) {
   animation: blink var(--time) infinite;
 }
+
 #masking rect:nth-child(64) {
   animation: blink var(--time) infinite;
 }
@@ -425,12 +368,15 @@ audiobars
   0% {
     opacity: var(--fade-in);
   }
+
   59% {
     opacity: var(--fade-in);
   }
+
   60% {
     opacity: var(--fade-out);
   }
+
   100% {
     opacity: var(--fade-out);
   }

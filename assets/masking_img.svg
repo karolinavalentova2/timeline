@@ -1,6 +1,6 @@
 <svg class="clip-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 720">
 
-  <image width="720" height="720" href="../assets/masking_img_opti.jpg" mask="url(#masking)" />
+  <image id="imageToChange" width="720" height="720" href="../assets/masking_img_opti.jpg" mask="url(#masking)" />
 
   <mask id="masking">
   <g fill="white">
