@@ -342,6 +342,7 @@ async function loadSVG() {
     document.getElementById("play-button-SVG").innerHTML = SVG.playButton;
     startMusic();
     document.getElementById("progressDonut").innerHTML = SVG.progressDonut;
+    document.getElementById("progressDonut2").innerHTML = SVG.progressDonut;
   } catch (error) {
     console.error("Cannot read svg file, reason: " + error.message);
   }

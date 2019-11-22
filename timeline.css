@@ -1,18 +1,33 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
   --main-color: #ff0062;
   --alt-color: #7f003a;
+
+  --bg-color: #3a3a3a;
+  --gray-color: #212121;
+  --black-color: #161616;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background: #3a3a3a;
+  background: var(--bg-color);
   overflow: hidden;
   font-family: "Roboto", sans-serif;
+}
+
+h1,
+#topbar {
+  color: white;
+  font-size: 15px;
+}
+
+h1 {
+  margin: 0;
+  padding-left: 1em;
 }
 
 main {
@@ -27,16 +42,9 @@ main {
 header {
   width: 100%;
   height: 60px;
-  background: #161616;
+  background: var(--black-color);
   display: flex;
   align-items: center;
-}
-
-header h1 {
-  margin: 0;
-  color: white;
-  font-size: 15px;
-  padding-left: 1em;
 }
 
 #logo-container {
@@ -46,12 +54,12 @@ header h1 {
 #timeline {
   width: 100%;
   margin: 0 auto;
-  background: #212121;
+  background: var(--gray-color);
   position: relative;
 }
 
 #timeline-top {
-  background: #161616;
+  background: var(--black-color);
   width: 100%;
   height: 30px;
 }
@@ -82,7 +90,6 @@ header h1 {
   cursor: pointer;
   text-align: center;
   line-height: 36px;
-  /*transform: translateX(-50%);*/
   font-size: 13px;
   color: var(--main-color);
   left: 50%;
@@ -128,8 +135,40 @@ footer {
   margin-top: 41px;
   transform: translateX(0);
 }
+/************************
 
-.infobox {
+  Modal container / Content
+
+***********************/
+#content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content;
+  width: 70%;
+  height: 80%;
+  background: var(--gray-color);
+  box-shadow: 10px 10px 0 var(--main-color), 20px 20px 0 var(--alt-color);
+  z-index: 1;
+}
+#topbar {
+  grid-column: 1 / -1;
+  background: var(--black-color);
+  color: white;
+  padding: 15px;
+}
+#modalMusicContainer {
+  display: flex;
+  align-items: center;
+}
+#content article:last-child {
+  overflow-y: scroll;
+}
+/************************
+
+  Old CSS start
+
+***********************/
+/*.infobox {
   position: absolute;
   width: 100%;
   color: #009aff;
@@ -140,7 +179,7 @@ footer {
 #container {
   width: 100%;
   height: 300px;
-  background: #212121;
+  background: var(--gray-color);
   margin: 0 auto;
   position: relative;
 }
@@ -157,7 +196,7 @@ footer {
   width: 100%;
   position: relative;
   z-index: 5;
-  /*box-shadow: 10px 10px 0 #ff0062, 20px 20px 0 #7f003a;*/
+  /*box-shadow: 10px 10px 0 #ff0062, 20px 20px 0 #7f003a;
 }
 .content::before,
 .content::after {
@@ -183,7 +222,7 @@ footer {
   top: 0;
   width: 100%;
   height: 40px;
-  background: #161616;
+  background: var(--black-color);
 }
 
 .show {
@@ -212,7 +251,12 @@ footer {
 .modal-h2 {
   font-size: 15px;
   margin-top: 15px;
-}
+}*/
+/************************
+
+  Old CSS end
+
+***********************/
 
 /* -------------------------- music player and donut chart */
 .play-song-container {
@@ -290,7 +334,7 @@ spectrum
   left: 0;
   transform-origin: bottom;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
   margin: 0 0 0 calc(0px - 1vw);
 }
 
@@ -302,7 +346,7 @@ audiobars
 .audiobar {
   width: calc(1vw - 1px);
   height: 100%;
-  background: #161616;
+  background: var(--black-color);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 0;
@@ -395,10 +439,5 @@ audiobars
 @media only screen and (min-width: 666px) {
   .content {
     width: 660px;
-  }
-
-  header h1 {
-    font-size: 22px;
-    padding-left: 2em;
   }
 }
