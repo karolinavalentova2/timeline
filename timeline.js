@@ -1,3 +1,5 @@
+"use strict";
+
 const pace = 10;
 const dataLink = "https://timeline-5237.restdb.io/rest/timeline-data";
 let dataLoaded = null;
@@ -23,7 +25,6 @@ function getData() {
 getData();
 
 function populateInfobox(data) {
-  console.log(data);
   document.querySelector("#topbar").innerHTML = data.origin;
 
   fetch("./assets/masking_img.svg")
@@ -309,26 +310,26 @@ function startSpectrum() {
 
   // AUDIO
 
-  var audioinfo = {
+  const audioinfo = {
     analyser: null,
     frequencyData: null
   };
 
   function initializeAudioAnalyser() {
     // build 100 audiobars in the spritesarea
-    var area = document.querySelector("#spectrum");
+    const area = document.querySelector("#spectrum");
 
-    for (var i = 0; i < 100; i++) {
-      var bar = document.createElement("div");
+    for (let i = 0; i < 100; i++) {
+      const bar = document.createElement("div");
       bar.className = "audiobar";
       area.appendChild(bar);
     }
 
     // create analyser
-    var context = new AudioContext();
-    var audio = document.querySelector("#music");
+    const context = new AudioContext();
+    const audio = document.querySelector("#music");
 
-    var audioSrc = context.createMediaElementSource(audio);
+    const audioSrc = context.createMediaElementSource(audio);
     audioinfo.analyser = context.createAnalyser();
     //    audioinfo.analyser.smoothingTimeConstant = 0;
     //    audioinfo.analyser.fftSize = 32768;
@@ -346,14 +347,14 @@ function startSpectrum() {
 
   // ******************************************************
 
-  var lasttime;
+  let lasttime;
 
   function doAnimations() {
     requestAnimationFrame(doAnimations);
 
     // calculate deltaTime ...
-    var now = Date.now();
-    var deltaTime = (now - (lasttime || now)) / 1000;
+    const now = Date.now();
+    const deltaTime = (now - (lasttime || now)) / 1000;
     lasttime = now;
 
     doAudioAnalyser(deltaTime);
@@ -368,23 +369,23 @@ function startSpectrum() {
     // the array of frequencydata contains 1024 values of frequency-data
 
     // loop through the array - set the heights of the audiobars to something
-    var audiobars = document.querySelectorAll("#spectrum .audiobar");
+    const audiobars = document.querySelectorAll("#spectrum .audiobar");
 
     //    var dist = audioinfo.analyser.maxDecibels - audioinfo.analyser.minDecibels;
 
-    var datasize = Math.floor(audioinfo.frequencyData.length * 0.75);
-    var step = Math.floor(datasize / audiobars.length);
+    const datasize = Math.floor(audioinfo.frequencyData.length * 0.75);
+    const step = Math.floor(datasize / audiobars.length);
 
-    for (var i = 0; i < audiobars.length; i++) {
+    for (let i = 0; i < audiobars.length; i++) {
       // load 10 values from the frequencyData, and find the average
-      var avg = 0;
-      for (var j = 0; j < step; j++) {
+      let avg = 0;
+      for (let j = 0; j < step; j++) {
         avg += audioinfo.frequencyData[j + i * step];
       }
-      var value = avg / step;
+      const value = avg / step;
 
       //        var value = audioinfo.frequencyData[i*step];
-      var fraction =
+      let fraction =
         (value - audioinfo.analyser.minDecibels) /
         (audioinfo.analyser.maxDecibels - audioinfo.analyser.minDecibels);
       if (fraction < 0 || fraction > 1) {
@@ -403,7 +404,6 @@ function startSpectrum() {
 
       //        console.log(fraction);
     }
-    //console.log("--------------------");
   }
 }
 startSpectrum();
