@@ -247,10 +247,6 @@ footer {
   width: 3.5rem;
 }
 
-#play-button-SVG {
-  margin-left: 13em;
-}
-
 #playBtn:hover {
   cursor: pointer;
 }
