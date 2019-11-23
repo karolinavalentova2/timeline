@@ -24,7 +24,7 @@ function populateInfobox(data) {
   console.log(data);
   document.querySelector("#topbar").innerHTML = data.origin;
 
-  fetch("assets/masking_img.svg").then(e => e.text()).then(svg => {
+  fetch("./assets/masking_img.svg").then(e => e.text()).then(svg => {
     document.querySelector("#content #svgImage").innerHTML = svg;
     document.querySelector(".clip-svg #imageToChange").href.baseVal = `assets/${data.year}.jpg`;
   });
@@ -192,14 +192,16 @@ async function loadSVG() {
     const SVG = {
       logo: await (await fetch("./assets/logo.svg")).text(),
       playButton: await (await fetch("./assets/play-button.svg")).text(),
-      progressDonut: await (await fetch("./assets/progress-donut.svg")).text()
+      progressDonut: await (await fetch("./assets/progress-donut.svg")).text(),
+      progressDonutTime: await (await fetch("./assets/progress-donut-time.svg")).text(),
     };
 
     document.getElementById("logo-container").innerHTML = SVG.logo;
     document.getElementById("play-button-SVG").innerHTML = SVG.playButton;
     startMusic();
     document.getElementById("progressDonut").innerHTML = SVG.progressDonut;
-    document.getElementById("progressDonut2").innerHTML = SVG.progressDonut;
+    document.getElementById("progressDonut2").innerHTML = SVG.progressDonutTime;
+
   } catch (error) {
     console.error("Cannot read svg file, reason: " + error.message);
   }
@@ -234,6 +236,8 @@ function startMusic() {
         currentPlayedPercent + "%";
 
       doStartPlayDonut(currentPlayedPercent);
+      doStartTimeDonut(currentPlayedPercent);
+
     }, 500);
   };
 }
@@ -255,6 +259,22 @@ function doResetPlayDonut() {
 
 function calculatePercentage(currentSeconds, totalSeconds) {
   return String(Math.round((currentSeconds / totalSeconds) * 100));
+}
+
+function doStartTimeDonut(currentPlayedPercent) {
+    document.getElementById('timeDonutFill').setAttribute('stroke-dasharray', `${100 - parseInt(currentPlayedPercent)} ${currentPlayedPercent}`);
+    const time =  millisToMinutesAndSeconds(MusicPlayer.duration - MusicPlayer.currentTime);
+
+    const test = document.getElementById('timeDonutText');
+    test.textContent = time;
+}
+
+// ----------- Source: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+function millisToMinutesAndSeconds(millis) {
+    millis = millis  * 1000;
+    const minutes = Math.floor(millis / 60000);
+    const seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
 function startSpectrum() {

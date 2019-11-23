@@ -227,6 +227,16 @@ footer {
   margin-left: 20px;
 }
 
+/* ---------------------------------- progress donut time */
+.time-donut-base {
+  stroke: #105c5e;
+}
+
+#timeDonutFill {
+  stroke: #21bfd6;
+  animation: donut 3s;
+}
+
 /* ----------------------------------- play and stop btn */
 #playBtn {
   width: 3.5rem;
