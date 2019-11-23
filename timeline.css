@@ -11,7 +11,8 @@
   --gray-color: #212121;
   --black-color: #161616;
   --blue-color: #009aff;
-  --purple-color: #21bfd6;
+  --lightblue-color: #21bfd6;
+  --purple-color: #8652d0;
 }
 
 body {
@@ -24,6 +25,12 @@ p,
 h1,
 #topbar {
   color: white;
+}
+marquee {
+  color: var(--purple-color);
+}
+p + p {
+  margin: 0 0 15px 0;
 }
 h1,
 #topbar {
@@ -161,7 +168,7 @@ footer {
   height: 80%;
   max-height: 720px;
   background: var(--gray-color);
-  box-shadow: 10px 10px 0 var(--blue-color), 20px 20px 0 var(--purple-color);
+  box-shadow: 10px 10px 0 var(--blue-color), 20px 20px 0 var(--lightblue-color);
   z-index: 1;
   column-gap: 15px;
 }

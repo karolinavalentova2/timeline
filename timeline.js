@@ -4,16 +4,18 @@ let dataLoaded = null;
 
 function getData() {
   fetch(dataLink, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=uf-8",
-        "x-apikey": "5dcad81864e7774913b6ebd3",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json; charset=uf-8",
+      "x-apikey": "5dcad81864e7774913b6ebd3",
+      "cache-control": "no-cache"
+    }
+  })
     .then(result => result.json())
     .then(res => {
-      const data = res.sort((a, b) => (a.year > b.year ? 1 : b.year > a.year ? -1 : 0));
+      const data = res.sort((a, b) =>
+        a.year > b.year ? 1 : b.year > a.year ? -1 : 0
+      );
       createInitialTimeline(data);
     });
 }
@@ -24,17 +26,26 @@ function populateInfobox(data) {
   console.log(data);
   document.querySelector("#topbar").innerHTML = data.origin;
 
-  fetch("./assets/masking_img.svg").then(e => e.text()).then(svg => {
-    document.querySelector("#content #svgImage").innerHTML = svg;
-    document.querySelector(".clip-svg #imageToChange").href.baseVal = `assets/${data.year}.jpg`;
-  });
+  fetch("./assets/masking_img.svg")
+    .then(e => e.text())
+    .then(svg => {
+      document.querySelector("#content #svgImage").innerHTML = svg;
+      document.querySelector(
+        ".clip-svg #imageToChange"
+      ).href.baseVal = `assets/${data.year}.jpg`;
+    });
 
   document.querySelector("#modalGenre").innerHTML = data.genre;
   document.querySelector("#modalDate").innerHTML = data.year;
   document.querySelector("#modalOrigin").innerHTML = data.origin;
-  document.querySelector("#modalInfo").innerHTML = data.info;
+  const arrParah = data.info.split(". ");
+  arrParah.forEach(function(paragraph) {
+    let newParah = document.createElement("p");
 
+    newParah.textContent = paragraph;
 
+    document.querySelector("#modalInfo").appendChild(newParah);
+  });
 }
 
 function getPace() {
@@ -52,7 +63,6 @@ function getPace() {
 }
 
 function createInitialTimeline(dataCircles) {
-
   const currentPace = getPace();
 
   dataLoaded = dataCircles;
@@ -62,7 +72,6 @@ function createInitialTimeline(dataCircles) {
   populateInfobox(dataLoaded[0]);
 
   dataCircles.forEach((value, index) => {
-
     const distanceFromMain = initialTimelineMain - index;
 
     let containerTop = `<div class="container-top"></div>`;
@@ -71,14 +80,11 @@ function createInitialTimeline(dataCircles) {
 
     if (index === initialTimelineMain) {
       circle = `<div id=${value.year} class="circle main">${value.year}</div>`;
-
     } else if (index === initialTimelineMain - 1) {
       circle = `<div id=${value.year} class="circle prev">${value.year}</div>`;
     } else if (index === initialTimelineMain + 1) {
       circle = `<div id=${value.year} class="circle next">${value.year}</div>`;
     }
-
-
 
     $(".timeline_circles").append(circle);
 
@@ -97,7 +103,7 @@ function createInitialTimeline(dataCircles) {
   // }, 1000);
 }
 
-$(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
+$(document).on("click mousewheel DOMMouseScroll", ".circle", function(e) {
   if ($(this).hasClass("main")) {
     return;
   }
@@ -140,7 +146,7 @@ function adjustTimeline(size) {
     transition: "transform 1s",
     transform: "translateX(" + size + "%)"
   });
-  setTimeout(function () {
+  setTimeout(function() {
     $(".timeline_circles").css({
       transition: "none"
     });
@@ -193,7 +199,9 @@ async function loadSVG() {
       logo: await (await fetch("./assets/logo.svg")).text(),
       playButton: await (await fetch("./assets/play-button.svg")).text(),
       progressDonut: await (await fetch("./assets/progress-donut.svg")).text(),
-      progressDonutTime: await (await fetch("./assets/progress-donut-time.svg")).text(),
+      progressDonutTime: await (
+        await fetch("./assets/progress-donut-time.svg")
+      ).text()
     };
 
     document.getElementById("logo-container").innerHTML = SVG.logo;
@@ -201,7 +209,6 @@ async function loadSVG() {
     startMusic();
     document.getElementById("progressDonut").innerHTML = SVG.progressDonut;
     document.getElementById("progressDonut2").innerHTML = SVG.progressDonutTime;
-
   } catch (error) {
     console.error("Cannot read svg file, reason: " + error.message);
   }
@@ -237,7 +244,6 @@ function startMusic() {
 
       doStartPlayDonut(currentPlayedPercent);
       doStartTimeDonut(currentPlayedPercent);
-
     }, 500);
   };
 }
@@ -262,19 +268,26 @@ function calculatePercentage(currentSeconds, totalSeconds) {
 }
 
 function doStartTimeDonut(currentPlayedPercent) {
-    document.getElementById('timeDonutFill').setAttribute('stroke-dasharray', `${100 - parseInt(currentPlayedPercent)} ${currentPlayedPercent}`);
-    const time =  millisToMinutesAndSeconds(MusicPlayer.duration - MusicPlayer.currentTime);
+  document
+    .getElementById("timeDonutFill")
+    .setAttribute(
+      "stroke-dasharray",
+      `${100 - parseInt(currentPlayedPercent)} ${currentPlayedPercent}`
+    );
+  const time = millisToMinutesAndSeconds(
+    MusicPlayer.duration - MusicPlayer.currentTime
+  );
 
-    const test = document.getElementById('timeDonutText');
-    test.textContent = time;
+  const test = document.getElementById("timeDonutText");
+  test.textContent = time;
 }
 
 // ----------- Source: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
 function millisToMinutesAndSeconds(millis) {
-    millis = millis  * 1000;
-    const minutes = Math.floor(millis / 60000);
-    const seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  millis = millis * 1000;
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
 
 function startSpectrum() {
