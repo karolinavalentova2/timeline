@@ -142,10 +142,11 @@ footer {
 ***********************/
 #content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 40% 30% 1fr;
   grid-template-rows: max-content;
   width: 70%;
   height: 80%;
+  max-height: 720px;
   background: var(--gray-color);
   box-shadow: 10px 10px 0 var(--main-color), 20px 20px 0 var(--alt-color);
   z-index: 1;
@@ -156,6 +157,10 @@ footer {
   background: var(--black-color);
   color: white;
   padding: 15px;
+}
+
+#svgImage {
+  height: 100%;
 }
 
 #modalMusicContainer {
@@ -281,11 +286,9 @@ audiobars
   transform-origin: bottom;
   will-change: transform;
 }
-
-.audiobar+.audiobar {
+.audiobar + .audiobar {
   margin-left: 5px;
 }
-
 /***************************
 
   SVG Animation
@@ -299,7 +302,6 @@ audiobars
   --time: 1s;
   opacity: var(--fade-in);
 }
-
 #masking rect:nth-child(1) {
   animation: blink var(--time) infinite;
 }
