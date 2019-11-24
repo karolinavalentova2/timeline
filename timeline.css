@@ -163,7 +163,11 @@ footer {
 #content {
   display: grid;
   grid-template-columns: 35% 30% 1fr;
-  grid-template-rows: max-content;
+  grid-template-rows: max-content 0.5fr 1fr;
+  grid-template-areas:
+        "top top top"
+        "img headline about"
+        "img player about";
   width: 70%;
   height: 80%;
   max-height: 720px;
@@ -174,14 +178,32 @@ footer {
 }
 
 #topbar {
-  grid-column: 1 / -1;
+  grid-area: top;
   background: var(--black-color);
   color: white;
   padding: 15px;
 }
 
+.img {
+  grid-area: img;
+}
+
+.headline {
+  grid-area: headline;
+}
+
+.player {
+  grid-area: player;
+  margin: 0 auto;
+}
+
+.about {
+  grid-area: about;
+}
+
 #svgImage {
-  height: 100%;
+  width: 100%;
+  min-width: 8rem;
 }
 
 #modalMusicContainer {
@@ -415,5 +437,41 @@ audiobars
 @media only screen and (min-width: 666px) {
   .content {
     width: 660px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #content {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
+    grid-template-rows: max-content 0.5fr 0.3fr 0.5fr;
+    grid-template-areas:
+            "top top top top"
+            ". img headline ."
+            ". img player ."
+            ".about about .";
+    width: 70%;
+  }
+
+  #svgImage {
+    width: 16rem;
+  }
+}
+
+@media (max-width: 800px) {
+  #content {
+    grid-template-columns: 0.1fr 0.7fr 1fr 0.1fr;
+    grid-template-rows: max-content 0.5fr 0.3fr 0.5fr;
+    grid-template-areas:
+            "top top top top"
+            ". img headline ."
+            ". player player ."
+            ".about about .";
+    width: 80%;
+  }
+
+
+  #svgImage {
+    width: 100%;
   }
 }
