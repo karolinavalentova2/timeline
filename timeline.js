@@ -21,7 +21,6 @@ function getData() {
 getData();
 
 function populateInfobox(data) {
-  console.log(data);
   document.querySelector("#topbar").innerHTML = data.origin;
 
   fetch("assets/masking_img.svg").then(e => e.text()).then(svg => {
@@ -33,7 +32,6 @@ function populateInfobox(data) {
   document.querySelector("#modalDate").innerHTML = data.year;
   document.querySelector("#modalOrigin").innerHTML = data.origin;
   document.querySelector("#modalInfo").innerHTML = data.info;
-
 
 }
 
@@ -65,8 +63,6 @@ function createInitialTimeline(dataCircles) {
 
     const distanceFromMain = initialTimelineMain - index;
 
-    let containerTop = `<div class="container-top"></div>`;
-
     let circle = `<div id=${value.year} class="circle">${value.year}</div>`;
 
     if (index === initialTimelineMain) {
@@ -78,12 +74,9 @@ function createInitialTimeline(dataCircles) {
       circle = `<div id=${value.year} class="circle next">${value.year}</div>`;
     }
 
-
-
     $(".timeline_circles").append(circle);
 
-    $(".circle").get(index).style.left = `${50 -
-      distanceFromMain * currentPace}%`;
+    $(".circle").get(index).style.left = `${50 -distanceFromMain * currentPace}%`;
   });
 
   // $('.timeline_circles').css({
@@ -247,11 +240,11 @@ function doStartPlayDonut(currentPlayedPercent) {
     );
 }
 
-function doResetPlayDonut() {
-  document
-    .getElementById("donutFill")
-    .setAttribute("stroke-dasharray", `0 100`);
-}
+// function doResetPlayDonut() {
+//   document
+//     .getElementById("donutFill")
+//     .setAttribute("stroke-dasharray", `0 100`);
+// }
 
 function calculatePercentage(currentSeconds, totalSeconds) {
   return String(Math.round((currentSeconds / totalSeconds) * 100));
