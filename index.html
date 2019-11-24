@@ -1,79 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="timeline.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Timeline Electronic Music</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" type="text/css" href="timeline.css" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
-  <title>Timeline Electronic Music</title>
-</head>
+  <body>
+    <header>
+      <div id="logo-container"></div>
+      <h1>The Evolution of Electronic Music</h1>
+    </header>
+    <main>
+      <section id="content">
+        <h2 id="topbar">Origin of the genre</h2>
+        <div class="img" id="svgImage">svg</div>
+        <article class="headline">
+          <h2 id="modalGenre">Genre</h2>
+          <h3 id="modalDate">date</h3>
+          <h3 id="modalOrigin">place</h3>
+        </article>
+        <article class="player">
+          <div id="modalMusicContainer">
+            <div id="play-button-SVG"></div>
+            <div id="progressDonut"></div>
+            <div id="progressDonut2"></div>
+          </div>
+        </article>
+        <article class="about" id="description">
+          <h2>About</h2>
+          <div id="modalInfo"></div>
+        </article>
+      </section>
+      <aside id="spectrum"></aside>
+      <audio
+        id="music"
+        autoplay="true"
+        loop="true"
+        src="assets/SynthPop.mp3"
+      ></audio>
+    </main>
 
-<body>
-  <header>
-    <div id="logo-container"></div>
-    <h1>The Evolution of Electronic Music</h1>
-  </header>
-  <main>
-    <aside id="spectrum"></aside>
-    <audio id="music" autoplay="true" loop="true" src="assets/SynthPop.mp3"></audio>
-    <section id="content">
-      <h2 id="topbar">Origin of the genre</h2>
-      <div id="svgImage">svg</div>
-      <article>
-        <h2 id="modalGenre">Genre</h2>
-        <h3 id="modalDate">date</h3>
-        <h3 id="modalOrigin">place</h3>
-        <div id="modalMusicContainer">
-          <div id="play-button-SVG"></div>
-          <div id="progressDonut"></div>
-          <div id="progressDonut2"></div>
+    <footer>
+      <div id="timeline">
+        <div id="timeline-top">
+          <marquee scrollamount="5"
+            >Made by Karolina V. &amp; Simon E.J. &amp; Andrei M.H.A with fear
+            and loathing in las vegas</marquee>
         </div>
-      </article>
-      <article id="description">
-        <h2>About</h2>
-        <div id="modalInfo">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius qui
-            aperiam nihil sunt quis delectus est dolores nemo libero
-            voluptatem consequuntur labore vero sint illo sit quibusdam, eos
-            repellendus accusantium.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius qui
-            aperiam nihil sunt quis delectus est dolores nemo libero
-            voluptatem consequuntur labore vero sint illo sit quibusdam, eos
-            repellendus accusantium.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius qui
-            aperiam nihil sunt quis delectus est dolores nemo libero
-            voluptatem consequuntur labore vero sint illo sit quibusdam, eos
-            repellendus accusantium.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius qui
-            aperiam nihil sunt quis delectus est dolores nemo libero
-            voluptatem consequuntur labore vero sint illo sit quibusdam, eos
-            repellendus accusantium.
-          </p>
+        <div id="line">
+          <div id="white_line"></div>
+          <div class="timeline_circles"></div>
         </div>
-      </article>
-    </section>
-  </main>
-
-  <footer>
-    <div id="timeline">
-      <div id="timeline-top"></div>
-      <div id="line">
-        <div id="white_line"></div>
-        <div class="timeline_circles"></div>
       </div>
-    </div>
-  </footer>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="timeline.js"></script>
-
+    </footer>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="timeline.js"></script>
 </html>

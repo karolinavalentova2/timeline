@@ -1,19 +1,23 @@
+"use strict";
+
 const pace = 10;
 const dataLink = "https://timeline-5237.restdb.io/rest/timeline-data";
 let dataLoaded = null;
 
 function getData() {
   fetch(dataLink, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=uf-8",
-        "x-apikey": "5dcad81864e7774913b6ebd3",
-        "cache-control": "no-cache"
-      }
-    })
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json; charset=uf-8",
+      "x-apikey": "5dcad81864e7774913b6ebd3",
+      "cache-control": "no-cache"
+    }
+  })
     .then(result => result.json())
     .then(res => {
-      const data = res.sort((a, b) => (a.year > b.year ? 1 : b.year > a.year ? -1 : 0));
+      const data = res.sort((a, b) =>
+        a.year > b.year ? 1 : b.year > a.year ? -1 : 0
+      );
       createInitialTimeline(data);
     });
 }
@@ -21,20 +25,28 @@ function getData() {
 getData();
 
 function populateInfobox(data) {
-  console.log(data);
   document.querySelector("#topbar").innerHTML = data.origin;
 
-  fetch("assets/masking_img.svg").then(e => e.text()).then(svg => {
-    document.querySelector("#content #svgImage").innerHTML = svg;
-    document.querySelector(".clip-svg #imageToChange").href.baseVal = `assets/${data.year}.jpg`;
-  });
+  fetch("./assets/masking_img.svg")
+    .then(e => e.text())
+    .then(svg => {
+      document.querySelector("#content #svgImage").innerHTML = svg;
+      document.querySelector(
+        ".clip-svg #imageToChange"
+      ).href.baseVal = `assets/${data.year}.jpg`;
+    });
 
   document.querySelector("#modalGenre").innerHTML = data.genre;
   document.querySelector("#modalDate").innerHTML = data.year;
   document.querySelector("#modalOrigin").innerHTML = data.origin;
-  document.querySelector("#modalInfo").innerHTML = data.info;
+  const arrParah = data.info.split(". ");
+  arrParah.forEach(function(paragraph) {
+    let newParah = document.createElement("p");
 
+    newParah.textContent = paragraph;
 
+    document.querySelector("#modalInfo").appendChild(newParah);
+  });
 }
 
 function getPace() {
@@ -52,7 +64,6 @@ function getPace() {
 }
 
 function createInitialTimeline(dataCircles) {
-
   const currentPace = getPace();
 
   dataLoaded = dataCircles;
@@ -62,28 +73,21 @@ function createInitialTimeline(dataCircles) {
   populateInfobox(dataLoaded[0]);
 
   dataCircles.forEach((value, index) => {
-
     const distanceFromMain = initialTimelineMain - index;
-
-    let containerTop = `<div class="container-top"></div>`;
 
     let circle = `<div id=${value.year} class="circle">${value.year}</div>`;
 
     if (index === initialTimelineMain) {
       circle = `<div id=${value.year} class="circle main">${value.year}</div>`;
-
     } else if (index === initialTimelineMain - 1) {
       circle = `<div id=${value.year} class="circle prev">${value.year}</div>`;
     } else if (index === initialTimelineMain + 1) {
       circle = `<div id=${value.year} class="circle next">${value.year}</div>`;
     }
 
-
-
     $(".timeline_circles").append(circle);
 
-    $(".circle").get(index).style.left = `${50 -
-      distanceFromMain * currentPace}%`;
+    $(".circle").get(index).style.left = `${50 -distanceFromMain * currentPace}%`;
   });
 
   // $('.timeline_circles').css({
@@ -97,7 +101,7 @@ function createInitialTimeline(dataCircles) {
   // }, 1000);
 }
 
-$(document).on("click mousewheel DOMMouseScroll", ".circle", function (e) {
+$(document).on("click mousewheel DOMMouseScroll", ".circle", function(e) {
   if ($(this).hasClass("main")) {
     return;
   }
@@ -140,7 +144,7 @@ function adjustTimeline(size) {
     transition: "transform 1s",
     transform: "translateX(" + size + "%)"
   });
-  setTimeout(function () {
+  setTimeout(function() {
     $(".timeline_circles").css({
       transition: "none"
     });
@@ -192,14 +196,17 @@ async function loadSVG() {
     const SVG = {
       logo: await (await fetch("./assets/logo.svg")).text(),
       playButton: await (await fetch("./assets/play-button.svg")).text(),
-      progressDonut: await (await fetch("./assets/progress-donut.svg")).text()
+      progressDonut: await (await fetch("./assets/progress-donut.svg")).text(),
+      progressDonutTime: await (
+        await fetch("./assets/progress-donut-time.svg")
+      ).text()
     };
 
     document.getElementById("logo-container").innerHTML = SVG.logo;
     document.getElementById("play-button-SVG").innerHTML = SVG.playButton;
     startMusic();
     document.getElementById("progressDonut").innerHTML = SVG.progressDonut;
-    document.getElementById("progressDonut2").innerHTML = SVG.progressDonut;
+    document.getElementById("progressDonut2").innerHTML = SVG.progressDonutTime;
   } catch (error) {
     console.error("Cannot read svg file, reason: " + error.message);
   }
@@ -234,6 +241,7 @@ function startMusic() {
         currentPlayedPercent + "%";
 
       doStartPlayDonut(currentPlayedPercent);
+      doStartTimeDonut(currentPlayedPercent);
     }, 500);
   };
 }
@@ -247,14 +255,37 @@ function doStartPlayDonut(currentPlayedPercent) {
     );
 }
 
-function doResetPlayDonut() {
-  document
-    .getElementById("donutFill")
-    .setAttribute("stroke-dasharray", `0 100`);
-}
+// function doResetPlayDonut() {
+//   document
+//     .getElementById("donutFill")
+//     .setAttribute("stroke-dasharray", `0 100`);
+// }
 
 function calculatePercentage(currentSeconds, totalSeconds) {
   return String(Math.round((currentSeconds / totalSeconds) * 100));
+}
+
+function doStartTimeDonut(currentPlayedPercent) {
+  document
+    .getElementById("timeDonutFill")
+    .setAttribute(
+      "stroke-dasharray",
+      `${100 - parseInt(currentPlayedPercent)} ${currentPlayedPercent}`
+    );
+  const time = millisToMinutesAndSeconds(
+    MusicPlayer.duration - MusicPlayer.currentTime
+  );
+
+  const test = document.getElementById("timeDonutText");
+  test.textContent = time;
+}
+
+// ----------- Source: https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+function millisToMinutesAndSeconds(millis) {
+  millis = millis * 1000;
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
 
 function startSpectrum() {
@@ -276,26 +307,26 @@ function startSpectrum() {
 
   // AUDIO
 
-  var audioinfo = {
+  const audioinfo = {
     analyser: null,
     frequencyData: null
   };
 
   function initializeAudioAnalyser() {
     // build 100 audiobars in the spritesarea
-    var area = document.querySelector("#spectrum");
+    const area = document.querySelector("#spectrum");
 
-    for (var i = 0; i < 100; i++) {
-      var bar = document.createElement("div");
+    for (let i = 0; i < 100; i++) {
+      const bar = document.createElement("div");
       bar.className = "audiobar";
       area.appendChild(bar);
     }
 
     // create analyser
-    var context = new AudioContext();
-    var audio = document.querySelector("#music");
+    const context = new AudioContext();
+    const audio = document.querySelector("#music");
 
-    var audioSrc = context.createMediaElementSource(audio);
+    const audioSrc = context.createMediaElementSource(audio);
     audioinfo.analyser = context.createAnalyser();
     //    audioinfo.analyser.smoothingTimeConstant = 0;
     //    audioinfo.analyser.fftSize = 32768;
@@ -313,14 +344,14 @@ function startSpectrum() {
 
   // ******************************************************
 
-  var lasttime;
+  let lasttime;
 
   function doAnimations() {
     requestAnimationFrame(doAnimations);
 
     // calculate deltaTime ...
-    var now = Date.now();
-    var deltaTime = (now - (lasttime || now)) / 1000;
+    const now = Date.now();
+    const deltaTime = (now - (lasttime || now)) / 1000;
     lasttime = now;
 
     doAudioAnalyser(deltaTime);
@@ -335,23 +366,23 @@ function startSpectrum() {
     // the array of frequencydata contains 1024 values of frequency-data
 
     // loop through the array - set the heights of the audiobars to something
-    var audiobars = document.querySelectorAll("#spectrum .audiobar");
+    const audiobars = document.querySelectorAll("#spectrum .audiobar");
 
     //    var dist = audioinfo.analyser.maxDecibels - audioinfo.analyser.minDecibels;
 
-    var datasize = Math.floor(audioinfo.frequencyData.length * 0.75);
-    var step = Math.floor(datasize / audiobars.length);
+    const datasize = Math.floor(audioinfo.frequencyData.length * 0.75);
+    const step = Math.floor(datasize / audiobars.length);
 
-    for (var i = 0; i < audiobars.length; i++) {
+    for (let i = 0; i < audiobars.length; i++) {
       // load 10 values from the frequencyData, and find the average
-      var avg = 0;
-      for (var j = 0; j < step; j++) {
+      let avg = 0;
+      for (let j = 0; j < step; j++) {
         avg += audioinfo.frequencyData[j + i * step];
       }
-      var value = avg / step;
+      const value = avg / step;
 
       //        var value = audioinfo.frequencyData[i*step];
-      var fraction =
+      let fraction =
         (value - audioinfo.analyser.minDecibels) /
         (audioinfo.analyser.maxDecibels - audioinfo.analyser.minDecibels);
       if (fraction < 0 || fraction > 1) {
@@ -370,7 +401,6 @@ function startSpectrum() {
 
       //        console.log(fraction);
     }
-    //console.log("--------------------");
   }
 }
 startSpectrum();

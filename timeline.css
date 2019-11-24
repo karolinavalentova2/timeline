@@ -10,17 +10,30 @@
   --bg-color: #3a3a3a;
   --gray-color: #212121;
   --black-color: #161616;
+  --blue-color: #009aff;
+  --lightblue-color: #21bfd6;
+  --purple-color: #8652d0;
 }
 
 body {
   background: var(--bg-color);
   overflow: hidden;
   font-family: "Roboto", sans-serif;
+  color: white;
 }
-
+p,
 h1,
 #topbar {
   color: white;
+}
+marquee {
+  color: var(--purple-color);
+}
+p + p {
+  margin: 0 0 15px 0;
+}
+h1,
+#topbar {
   font-size: 15px;
 }
 
@@ -28,7 +41,10 @@ h1 {
   margin: 0;
   padding-left: 1em;
 }
-
+h2,
+h3 {
+  color: var(--blue-color);
+}
 main {
   height: calc(100vh - 173px - 60px);
   padding: 1rem 0;
@@ -140,22 +156,54 @@ footer {
   Modal container / Content
 
 ***********************/
+#modalGenre {
+  font-weight: bold;
+  margin: 0 0 15px 0;
+}
 #content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: max-content;
+  grid-template-columns: 35% 30% 1fr;
+  grid-template-rows: max-content 0.5fr 1fr;
+  grid-template-areas:
+        "top top top"
+        "img headline about"
+        "img player about";
   width: 70%;
   height: 80%;
+  max-height: 720px;
   background: var(--gray-color);
-  box-shadow: 10px 10px 0 var(--main-color), 20px 20px 0 var(--alt-color);
+  box-shadow: 10px 10px 0 var(--blue-color), 20px 20px 0 var(--lightblue-color);
   z-index: 1;
+  column-gap: 15px;
 }
 
 #topbar {
-  grid-column: 1 / -1;
+  grid-area: top;
   background: var(--black-color);
   color: white;
   padding: 15px;
+}
+
+.img {
+  grid-area: img;
+}
+
+.headline {
+  grid-area: headline;
+}
+
+.player {
+  grid-area: player;
+  margin: 0 auto;
+}
+
+.about {
+  grid-area: about;
+}
+
+#svgImage {
+  width: 100%;
+  min-width: 8rem;
 }
 
 #modalMusicContainer {
@@ -187,6 +235,7 @@ footer {
 /* -------------------------- music player and donut chart */
 .play-song-container {
   width: 100%;
+  margin: 15px 0 0 0;
   display: flex;
   align-items: center;
 }
@@ -227,13 +276,19 @@ footer {
   margin-left: 20px;
 }
 
+/* ---------------------------------- progress donut time */
+.time-donut-base {
+  stroke: #105c5e;
+}
+
+#timeDonutFill {
+  stroke: #21bfd6;
+  animation: donut 3s;
+}
+
 /* ----------------------------------- play and stop btn */
 #playBtn {
   width: 3.5rem;
-}
-
-#play-button-SVG {
-  margin-left: 13em;
 }
 
 #playBtn:hover {
@@ -281,11 +336,9 @@ audiobars
   transform-origin: bottom;
   will-change: transform;
 }
-
-.audiobar+.audiobar {
+.audiobar + .audiobar {
   margin-left: 5px;
 }
-
 /***************************
 
   SVG Animation
@@ -299,7 +352,6 @@ audiobars
   --time: 1s;
   opacity: var(--fade-in);
 }
-
 #masking rect:nth-child(1) {
   animation: blink var(--time) infinite;
 }
@@ -385,5 +437,41 @@ audiobars
 @media only screen and (min-width: 666px) {
   .content {
     width: 660px;
+  }
+}
+
+@media (max-width: 1200px) {
+  #content {
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 1fr 0.1fr;
+    grid-template-rows: max-content 0.5fr 0.3fr 0.5fr;
+    grid-template-areas:
+            "top top top top"
+            ". img headline ."
+            ". img player ."
+            ".about about .";
+    width: 70%;
+  }
+
+  #svgImage {
+    width: 16rem;
+  }
+}
+
+@media (max-width: 800px) {
+  #content {
+    grid-template-columns: 0.1fr 0.7fr 1fr 0.1fr;
+    grid-template-rows: max-content 0.5fr 0.3fr 0.5fr;
+    grid-template-areas:
+            "top top top top"
+            ". img headline ."
+            ". player player ."
+            ".about about .";
+    width: 80%;
+  }
+
+
+  #svgImage {
+    width: 100%;
   }
 }
